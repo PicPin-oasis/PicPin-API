@@ -20,3 +20,28 @@ spring:
       hibernate:
         show_sql: true
     open-in-view: false
+
+---
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  config:
+    activate:
+      on-profile: production
+
+  datasource:
+    url: jdbc:mysql://${PICPIN_DB_HOST}:${PICPIN_DB_PORT}/picpin?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${PICPIN_DB_USER}
+    password: ${PICPIN_DB_PASSWORD}
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      format_sql: false
+      hibernate:
+        show_sql: false
+    open-in-view: false
