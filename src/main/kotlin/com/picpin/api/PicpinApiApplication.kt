@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class PicpinApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<PicpinApiApplication>(*args)
+    runApplication<PicpinApiApplication>(*args)
 }
