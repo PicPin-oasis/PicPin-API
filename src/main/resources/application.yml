@@ -1,4 +1,5 @@
 server:
+  port: 5000
   error:
     whitelabel:
       enabled: false
@@ -24,6 +25,7 @@ spring:
 ---
 
 server:
+  port: 5000
   error:
     whitelabel:
       enabled: false
