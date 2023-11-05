@@ -1,0 +1,22 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  config:
+    activate:
+      on-profile: default
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/picpin?characterEncoding=UTF-8&serverTimezone=UTC
+    username: picpin_user
+    password: picpin_user
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      format_sql: true
+      hibernate:
+        show_sql: true
+    open-in-view: false
