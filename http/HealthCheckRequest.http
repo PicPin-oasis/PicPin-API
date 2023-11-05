@@ -1,0 +1,2 @@
+GET {{apiAddress}}/health-check
+Content-Type: application/json
