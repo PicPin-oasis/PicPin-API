@@ -40,6 +40,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ${{ env.AWS_REGION }}
         application_name: picpin-api
-        environment_name: Picpin-api-env-1
+        environment_name: Api-picpin-production-env
         version_label: github-action-${{steps.current-time.outputs.formattedTime}}
         deployment_package: deploy/deploy.zip

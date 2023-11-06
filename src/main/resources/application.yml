@@ -20,6 +20,15 @@ spring:
       hibernate:
         show_sql: true
     open-in-view: false
+    hibernate:
+      ddl-auto: create
+
+oauth2:
+  access_token_url: "https://kauth.kakao.com/oauth/token"
+  get_user_info_url: "https://kapi.kakao.com/v2/user/me"
+  redirect_url: ${KAKAO_REDIRECT_URL}
+  client_id: ${KAKAO_CLIENT_ID}
+  client_secret: ${KAKAO_CLIENT_SECRET}
 
 ---
 
@@ -45,3 +54,12 @@ spring:
       hibernate:
         show_sql: false
     open-in-view: false
+    hibernate:
+      ddl-auto: none
+
+oauth2:
+  access_token_url: "https://kauth.kakao.com/oauth/token"
+  get_user_info_url: "https://kapi.kakao.com/v2/user/me"
+  redirect_url: ${KAKAO_REDIRECT_URL}
+  client_id: ${KAKAO_CLIENT_ID}
+  client_secret: ${KAKAO_CLIENT_SECRET}

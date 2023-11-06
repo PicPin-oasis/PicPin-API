@@ -7,6 +7,8 @@ plugins {
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
+    kotlin("plugin.allopen") version "1.8.22"
+    kotlin("plugin.noarg") version "1.8.22"
 }
 
 group = "com.picpin"
@@ -23,7 +25,6 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
     implementation("org.springframework.boot:spring-boot-starter-validation:3.0.4")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.0.4")
     implementation("com.auth0:java-jwt:4.3.0")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
@@ -34,6 +35,18 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
+}
+
+noArg {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
 
 tasks.withType<KotlinCompile> {
