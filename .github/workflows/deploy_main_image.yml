@@ -1,9 +1,11 @@
-name: deploy_main_image
+name: deploy_main
 
 env:
   AWS_REGION: ap-northeast-2
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -20,19 +22,24 @@ jobs:
         java-version: '17'
     - name: Clean build
       run: ./gradlew clean build -x test
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+    - name: Get Deploy current time
+      uses: 1466587594/get-current-time@v2
+      id: current-time
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-    - name: Login to Amazon ECR
-      uses: aws-actions/amazon-ecr-login@v2
-    - name: Build, tag, and push image to Amazon ECR
-      env:
-        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: picpin-api
-        IMAGE_TAG: ${{ github.sha }}
+        format: YYYY-MM-DDTHH-mm-ss
+        utcOffset: "+09:00"
+    - name: Generate deployment package
       run: |
-        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        mkdir -p deploy
+        cp build/libs/*.jar deploy/app.jar
+        cd deploy && zip -r deploy.zip .
+    - name: Deploy to ElasticBeanstalk
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: ${{ env.AWS_REGION }}
+        application_name: picpin-api
+        environment_name: Picpin-api-env-1
+        version_label: github-action-${{steps.current-time.outputs.formattedTime}}
+        deployment_package: deploy/deploy.zip
