@@ -1,0 +1,7 @@
+POST {{apiAddress}}/photos/upload-url
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTM2ODQxOCwianRpIjoiMSJ9.ge9kh8N8aW_42fz5MWAYHU1fDwqT6JF850mJoFCTVfM
+
+{
+  "image_name": "image.jpg"
+}
