@@ -17,7 +17,7 @@ import java.time.LocalDate
         Index(name = "idx_account_vendor_id", columnList = "vendor_id")
     ]
 )
-class AccountEntity(
+class Account(
     @Column(nullable = false, unique = true, name = "vendor_id")
     val vendorId: Long,
     @Column(nullable = false, length = 255)

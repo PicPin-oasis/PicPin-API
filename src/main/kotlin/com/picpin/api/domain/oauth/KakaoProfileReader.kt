@@ -1,6 +1,6 @@
 package com.picpin.api.domain.oauth
 
-import com.picpin.api.domain.oauth.model.KakaoAccount
+import com.picpin.api.domain.oauth.model.KakaoUserInfo
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
@@ -19,12 +19,12 @@ class KakaoProfileReader(
 ) {
     val logger: KLogger = KotlinLogging.logger { }
 
-    fun getKakaoAccount(tokenType: String, accessToken: String): KakaoAccount {
+    fun getKakaoUserInfo(tokenType: String, accessToken: String): KakaoUserInfo {
         val httpHeaders = getHttpHeaders(tokenType, accessToken)
         val requestEntity: HttpEntity<MultiValueMap<String, String>> = HttpEntity(httpHeaders)
 
         try {
-            val responseEntity = restTemplate.exchange<KakaoAccount>(
+            val responseEntity = restTemplate.exchange<KakaoUserInfo>(
                 url = getUserInfoUrl,
                 method = HttpMethod.GET,
                 requestEntity = requestEntity

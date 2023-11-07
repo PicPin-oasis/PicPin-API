@@ -2,14 +2,14 @@ package com.picpin.api.domain.oauth.model
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domain.account.AccountEntity
+import com.picpin.api.domain.account.Account
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class KakaoAccount(
+data class KakaoUserInfo(
     @JsonProperty("id")
     val id: String,
     @JsonProperty("kakao_account")
-    val kakaoAccount: Account,
+    val kakaoAccount: KakaoAccount,
     @JsonProperty("has_email")
     val hasEmail: Boolean? = null,
     @JsonProperty("is_email_valid")
@@ -18,15 +18,15 @@ data class KakaoAccount(
     val email: String? = null
 )
 
-fun KakaoAccount.toAccount(): AccountEntity =
-    AccountEntity(
+fun KakaoUserInfo.toAccount(): Account =
+    Account(
         vendorId = id.toLong(),
         username = kakaoAccount.profile.nickname,
         profileImageUrl = kakaoAccount.profile.profileImageUrl,
         email = email
     )
 
-data class Account(
+data class KakaoAccount(
     val profile: KakaoProfile
 )
 
