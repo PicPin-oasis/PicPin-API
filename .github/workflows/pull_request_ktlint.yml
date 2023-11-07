@@ -14,4 +14,4 @@ jobs:
             distribution: 'corretto'
             java-version: '17'
         - name: Lint
-          run: ./gradlew kilintCheck
+          run: ./gradlew ktlintCheck
