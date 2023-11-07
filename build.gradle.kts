@@ -34,6 +34,8 @@ dependencies {
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
 }
 
