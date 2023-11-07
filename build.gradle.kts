@@ -4,6 +4,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
+    id("com.avast.gradle.docker-compose") version "0.17.5"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
@@ -62,4 +63,8 @@ tasks.withType<Test> {
 
 tasks.jar {
     enabled = false
+}
+
+dockerCompose {
+    useComposeFiles.add("./docker-compose.yml")
 }
