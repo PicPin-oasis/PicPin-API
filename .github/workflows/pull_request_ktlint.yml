@@ -1,4 +1,4 @@
-name: pull_resquest_build
+name: pull_resquest_ktlint
 
 on: [pull_request]
 
@@ -8,16 +8,10 @@ jobs:
     steps:
         - name: Checkout
           uses: actions/checkout@v3
-        - name: Run infra
-          uses: ./gradlew composeUp
         - name: Setup Java
           uses: actions/setup-java@v3
           with:
             distribution: 'corretto'
             java-version: '17'
-        - name: Check running containers
-          run: docker ps -a
         - name: Lint
           run: ./gradlew kilintCheck
-        - name: Build
-          run: ./gradlew build -x test
