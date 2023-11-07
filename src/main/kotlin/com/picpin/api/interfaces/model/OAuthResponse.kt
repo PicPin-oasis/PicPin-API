@@ -1,7 +1,7 @@
 package com.picpin.api.interfaces.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domain.oauth.CustomAccessToken
+import com.picpin.api.domain.oauth.model.CustomAccessToken
 
 data class OAuthResponse(
     @JsonProperty("access_token")
