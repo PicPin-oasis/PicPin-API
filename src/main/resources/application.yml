@@ -33,7 +33,8 @@ oauth2:
 jwt:
   issuer: ${JWT_ISSUER:local}
   secret: ${JWT_SECRET:AAAAAAAA}
-  access_token_expire_time:: ${JWT_ACCESS_TOKEN_EXPIRE_TIME:3600}
+  access_token_expire_time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME:3600}
+
 
 ---
 
@@ -72,4 +73,4 @@ oauth2:
 jwt:
   issuer: ${JWT_ISSUER}
   secret: ${JWT_SECRET}
-  access_token_expire_time:: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
+  access_token_expire_time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
