@@ -4,6 +4,8 @@ import com.picpin.api.domain.account.AccountService
 import com.picpin.api.domain.oauth.AccessTokenGenerator
 import com.picpin.api.domain.oauth.KakaoAccessTokenReader
 import com.picpin.api.domain.oauth.KakaoProfileReader
+import com.picpin.api.domain.oauth.KakaoRefreshTokenService
+import com.picpin.api.domain.oauth.model.JsonWebToken
 import com.picpin.api.domain.oauth.model.toAccount
 import com.picpin.api.interfaces.model.OAuthResponse
 import io.github.oshai.kotlinlogging.KLogger
@@ -15,7 +17,8 @@ class KakaoSocialLoginUseCase(
     private val kakaoAccessTokenReader: KakaoAccessTokenReader,
     private val kakaoProfileReader: KakaoProfileReader,
     private val accountService: AccountService,
-    private val tokenGenerator: AccessTokenGenerator
+    private val tokenGenerator: AccessTokenGenerator,
+    private val kakaoRefreshTokenService: KakaoRefreshTokenService
 ) {
     val logger: KLogger = KotlinLogging.logger { }
 
@@ -27,8 +30,18 @@ class KakaoSocialLoginUseCase(
         )
 
         val account = accountService.ifNotExistsSignUp(kakaoUserInfo.toAccount())
-        val accessToken = tokenGenerator.generate(account.id!!)
+        val accessToken = tokenGenerator.generateAccessToken(account.id!!)
+        val kakaoRefreshToken = kakaoRefreshTokenService.ifNotExistsSave(
+            accountId = account.id!!,
+            vendorId = account.vendorId,
+            payload = kakaoAccessToken.refreshToken,
+            expireDateTimeToSec = kakaoAccessToken.refreshTokenExpiresIn.toLong()
+        )
 
-        return OAuthResponse(accessToken, kakaoAccessToken.tokenType)
+        return OAuthResponse(
+            jsonWebToken = accessToken,
+            refreshToken = JsonWebToken.from(kakaoRefreshToken),
+            tokenType = kakaoAccessToken.tokenType
+        )
     }
 }
