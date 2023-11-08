@@ -1,8 +1,8 @@
 package com.picpin.api.interfaces
 
-import com.picpin.api.aspect.AccountId
 import com.picpin.api.interfaces.model.MyProfileResponse
 import com.picpin.api.usecases.GetMyProfileUseCase
+import com.picpin.api.verticals.web.AccountId
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
