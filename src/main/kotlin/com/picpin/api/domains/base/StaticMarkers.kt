@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.picpin.api.verticals.domain.BusinessErrorCode
 import com.picpin.api.verticals.domain.BusinessException
 
-fun createStaticMarkerColors() =
+val staticMarkerColors =
     MarkerColorCode.values().map { StaticMarkerColor(it.id, it.enableHexCode) }
 
-fun createStaticMarkerColorFilters() =
+val staticMarkerColorFilters =
     MarkerColorCode.values().map { StaticMarkerColorFilter(it.id, it.enableHexCode, it.disableHexCode, false) }
 
 enum class MarkerColorCode(val id: Int, val enableHexCode: String, val disableHexCode: String) {
-
     RED(1, "FF0000", "FFD9D9"),
     ORANGE(2, "FF9901", "FFF0D9"),
     YELLOW(3, "FFE500", "FFFBD9"),
@@ -33,8 +32,8 @@ data class StaticMarkerColorFilter(
     val enableHexCode: String,
     @JsonProperty("disable_hex_code")
     val disableHexCode: String,
-    @JsonProperty("is_selected")
-    val isSelected: Boolean
+    @JsonProperty("is_enabled")
+    val isEnabled: Boolean
 )
 
 data class StaticMarkerColor(

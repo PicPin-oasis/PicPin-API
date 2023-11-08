@@ -1,8 +1,8 @@
 package com.picpin.api.interfaces
 
-import com.picpin.api.domains.base.createStaticProvinceFilters
-import com.picpin.api.domains.base.createStaticMarkerColors
-import com.picpin.api.domains.base.createStaticMarkerColorFilters
+import com.picpin.api.domains.base.staticProvinceFilters
+import com.picpin.api.domains.base.staticMarkerColors
+import com.picpin.api.domains.base.staticMarkerColorFilters
 import com.picpin.api.interfaces.model.GetMetaAttributesResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,9 +14,9 @@ class MetaApi {
     @GetMapping("/mata-attributes")
     fun getMetaAttributes(): ResponseEntity<GetMetaAttributesResponse> {
         val getMetaAttributesResponse = GetMetaAttributesResponse(
-            provinceFilters = createStaticProvinceFilters(),
-            markerColors = createStaticMarkerColors(),
-            markerFilters = createStaticMarkerColorFilters()
+            provinceFilters = staticProvinceFilters,
+            markerColors = staticMarkerColors,
+            markerFilters = staticMarkerColorFilters
         )
         return ResponseEntity.ok(getMetaAttributesResponse)
     }

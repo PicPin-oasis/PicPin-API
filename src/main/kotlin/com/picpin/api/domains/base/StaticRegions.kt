@@ -2,7 +2,7 @@ package com.picpin.api.domains.base
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-fun createStaticProvinceFilters() =
+val staticProvinceFilters =
     ProvinceCode.values().map { StaticProvinceFilter(it.id, it.code, it.rootName) }
 
 enum class ProvinceCode(val id: Int, val code: Int, val rootName: String) {
