@@ -21,4 +21,7 @@ class AccountService(
             accountRepository.save(account)
         }
     }
+
+    @Transactional(readOnly = true)
+    fun findBy(accountId: Long): Account = accountRepository.findBy(accountId)
 }
