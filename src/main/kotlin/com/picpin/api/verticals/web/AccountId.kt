@@ -1,4 +1,4 @@
-package com.picpin.api.aspect
+package com.picpin.api.verticals.web
 
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)

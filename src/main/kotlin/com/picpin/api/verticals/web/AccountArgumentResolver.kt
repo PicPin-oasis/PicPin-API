@@ -1,4 +1,4 @@
-package com.picpin.api.aspect
+package com.picpin.api.verticals.web
 
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory

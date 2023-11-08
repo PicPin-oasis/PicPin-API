@@ -1,4 +1,4 @@
-package com.picpin.api.aspect
+package com.picpin.api.verticals.web
 
 import com.picpin.api.domain.oauth.AccessTokenParser
 import jakarta.servlet.http.HttpServletRequest

@@ -1,4 +1,4 @@
-package com.picpin.api.aspect
+package com.picpin.api.verticals.web
 
 object AccountHolder {
     private val holder = ThreadLocal<Long>()
