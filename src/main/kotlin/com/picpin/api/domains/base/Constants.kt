@@ -1,4 +1,4 @@
-package com.picpin.api.domain.base
+package com.picpin.api.domains.base
 
 import java.time.ZoneId
 

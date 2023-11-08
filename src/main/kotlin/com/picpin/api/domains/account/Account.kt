@@ -1,6 +1,6 @@
-package com.picpin.api.domain.account
+package com.picpin.api.domains.account
 
-import com.picpin.api.domain.base.BaseTimeEntity
+import com.picpin.api.domains.base.BaseTimeEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -12,7 +12,6 @@ import java.time.LocalDate
 
 @Entity
 @Table(
-    name = "account",
     indexes = [
         Index(name = "idx_account_vendor_id", columnList = "vendor_id")
     ]
@@ -33,4 +32,17 @@ class Account(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-) : BaseTimeEntity()
+) : BaseTimeEntity() {
+
+    companion object {
+        fun fixture(): Account = Account(
+            1,
+            "name",
+            "profile_image_url",
+            "email",
+            LocalDate.now(),
+            "MALE",
+            1
+        )
+    }
+}
