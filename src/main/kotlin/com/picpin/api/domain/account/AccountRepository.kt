@@ -10,4 +10,10 @@ interface AccountRepository : JpaRepository<Account, Long> {
     fun existsByVendorId(vendorId: Long): Boolean
 
     fun findByVendorId(vendorId: Long): Account
+
+    fun findBy(accountId: Long): Account {
+        return findById(accountId).orElseThrow {
+            RuntimeException("accountId = $accountId")
+        }
+    }
 }

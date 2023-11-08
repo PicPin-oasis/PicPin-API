@@ -12,7 +12,6 @@ import java.time.LocalDate
 
 @Entity
 @Table(
-    name = "account",
     indexes = [
         Index(name = "idx_account_vendor_id", columnList = "vendor_id")
     ]
@@ -33,4 +32,17 @@ class Account(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-) : BaseTimeEntity()
+) : BaseTimeEntity() {
+
+    companion object {
+        fun fixture(): Account = Account(
+            1,
+            "name",
+            "profile_image_url",
+            "email",
+            LocalDate.now(),
+            "MALE",
+            1
+        )
+    }
+}
