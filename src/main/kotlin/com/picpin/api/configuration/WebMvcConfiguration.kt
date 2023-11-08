@@ -34,7 +34,7 @@ class WebMvcConfiguration(
 
             override fun addInterceptors(registry: InterceptorRegistry) {
                 registry.addInterceptor(preAuthorizeInterceptor())
-                    .excludePathPatterns("/oauth2/code/kakao", "/health-check")
+                    .excludePathPatterns("/oauth2/code/kakao", "/health-check", "/error", "/favicon.ico")
                     .addPathPatterns("/**")
             }
 
