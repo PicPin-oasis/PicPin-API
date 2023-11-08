@@ -1,4 +1,4 @@
-package com.picpin.api.domain.photo.model
+package com.picpin.api.domains.photo.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

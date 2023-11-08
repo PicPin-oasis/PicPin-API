@@ -1,6 +1,6 @@
-package com.picpin.api.domain.oauth
+package com.picpin.api.domains.oauth
 
-import com.picpin.api.domain.oauth.model.KakaoUserInfo
+import com.picpin.api.domains.oauth.model.KakaoUserInfo
 import com.picpin.api.verticals.domain.BusinessErrorCode
 import com.picpin.api.verticals.domain.BusinessException
 import io.github.oshai.kotlinlogging.KLogger

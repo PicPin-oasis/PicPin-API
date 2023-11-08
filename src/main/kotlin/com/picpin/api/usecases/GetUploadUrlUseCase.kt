@@ -1,7 +1,7 @@
 package com.picpin.api.usecases
 
-import com.picpin.api.domain.photo.S3Service
-import com.picpin.api.domain.photo.model.UploadUrlResponse
+import com.picpin.api.domains.photo.S3Service
+import com.picpin.api.domains.photo.model.UploadUrlResponse
 import org.springframework.stereotype.Service
 
 @Service

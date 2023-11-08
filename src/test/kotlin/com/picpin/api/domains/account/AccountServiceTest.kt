@@ -1,4 +1,4 @@
-package com.picpin.api.domain.account
+package com.picpin.api.domains.account
 
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields

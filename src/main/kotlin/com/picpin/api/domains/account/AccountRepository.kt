@@ -1,4 +1,4 @@
-package com.picpin.api.domain.account
+package com.picpin.api.domains.account
 
 import com.picpin.api.verticals.domain.BusinessErrorCode
 import com.picpin.api.verticals.domain.BusinessException

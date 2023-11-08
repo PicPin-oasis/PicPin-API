@@ -1,6 +1,6 @@
 package com.picpin.api.verticals.web
 
-import com.picpin.api.domain.oauth.AccessTokenParser
+import com.picpin.api.domains.oauth.AccessTokenParser
 import com.picpin.api.verticals.domain.BusinessErrorCode
 import com.picpin.api.verticals.domain.BusinessException
 import jakarta.servlet.http.HttpServletRequest

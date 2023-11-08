@@ -1,6 +1,6 @@
-package com.picpin.api.domain.oauth
+package com.picpin.api.domains.oauth
 
-import com.picpin.api.domain.base.BaseTimeEntity
+import com.picpin.api.domains.base.BaseTimeEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

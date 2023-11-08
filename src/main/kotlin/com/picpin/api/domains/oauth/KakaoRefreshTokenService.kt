@@ -1,6 +1,6 @@
-package com.picpin.api.domain.oauth
+package com.picpin.api.domains.oauth
 
-import com.picpin.api.domain.base.DEFAULT_ZONE_ID
+import com.picpin.api.domains.base.DEFAULT_ZONE_ID
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

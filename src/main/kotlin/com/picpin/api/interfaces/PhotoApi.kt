@@ -1,6 +1,6 @@
 package com.picpin.api.interfaces
 
-import com.picpin.api.domain.photo.model.UploadUrlResponse
+import com.picpin.api.domains.photo.model.UploadUrlResponse
 import com.picpin.api.interfaces.model.GetUploadUrlRequest
 import com.picpin.api.usecases.GetUploadUrlUseCase
 import org.springframework.http.ResponseEntity

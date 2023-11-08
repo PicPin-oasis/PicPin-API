@@ -1,8 +1,8 @@
-package com.picpin.api.domain.oauth.model
+package com.picpin.api.domains.oauth.model
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domain.account.Account
+import com.picpin.api.domains.account.Account
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class KakaoUserInfo(

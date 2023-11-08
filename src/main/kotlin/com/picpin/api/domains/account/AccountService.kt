@@ -1,4 +1,4 @@
-package com.picpin.api.domain.account
+package com.picpin.api.domains.account
 
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging

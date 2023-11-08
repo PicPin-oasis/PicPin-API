@@ -1,8 +1,8 @@
-package com.picpin.api.domain.oauth
+package com.picpin.api.domains.oauth
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.picpin.api.domain.oauth.model.JsonWebToken
+import com.picpin.api.domains.oauth.model.JsonWebToken
 import com.picpin.api.verticals.domain.BusinessErrorCode
 import com.picpin.api.verticals.domain.BusinessException
 import org.springframework.beans.factory.annotation.Value

@@ -1,7 +1,7 @@
-package com.picpin.api.domain.oauth.model
+package com.picpin.api.domains.oauth.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domain.oauth.KakaoRefreshToken
+import com.picpin.api.domains.oauth.KakaoRefreshToken
 import java.time.ZoneOffset
 
 data class JsonWebToken(

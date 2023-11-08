@@ -1,4 +1,4 @@
-package com.picpin.api.domain.oauth
+package com.picpin.api.domains.oauth
 
 import jakarta.persistence.LockModeType
 import org.springframework.data.jpa.repository.JpaRepository

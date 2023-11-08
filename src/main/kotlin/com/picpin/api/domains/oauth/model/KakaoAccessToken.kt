@@ -1,4 +1,4 @@
-package com.picpin.api.domain.oauth.model
+package com.picpin.api.domains.oauth.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

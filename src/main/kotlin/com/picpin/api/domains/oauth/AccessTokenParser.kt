@@ -1,4 +1,4 @@
-package com.picpin.api.domain.oauth
+package com.picpin.api.domains.oauth
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm

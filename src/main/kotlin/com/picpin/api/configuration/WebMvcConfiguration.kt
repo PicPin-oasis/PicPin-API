@@ -1,6 +1,6 @@
 package com.picpin.api.configuration
 
-import com.picpin.api.domain.oauth.AccessTokenParser
+import com.picpin.api.domains.oauth.AccessTokenParser
 import com.picpin.api.verticals.web.AccountArgumentResolver
 import com.picpin.api.verticals.web.PreAuthorizeInterceptor
 import org.springframework.context.annotation.Bean

@@ -1,12 +1,12 @@
-package com.picpin.api.domain.photo
+package com.picpin.api.domains.photo
 
 import com.amazonaws.HttpMethod
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.Headers
 import com.amazonaws.services.s3.model.CannedAccessControlList.PublicRead
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
-import com.picpin.api.domain.base.DEFAULT_ZONE_ID
-import com.picpin.api.domain.photo.model.PreSignedUrl
+import com.picpin.api.domains.base.DEFAULT_ZONE_ID
+import com.picpin.api.domains.photo.model.PreSignedUrl
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils

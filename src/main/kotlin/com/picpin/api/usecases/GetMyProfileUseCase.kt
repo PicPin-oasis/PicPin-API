@@ -1,6 +1,6 @@
 package com.picpin.api.usecases
 
-import com.picpin.api.domain.account.AccountService
+import com.picpin.api.domains.account.AccountService
 import com.picpin.api.interfaces.model.MyProfileResponse
 import org.springframework.stereotype.Service
 
