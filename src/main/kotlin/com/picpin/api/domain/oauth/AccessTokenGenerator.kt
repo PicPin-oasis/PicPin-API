@@ -2,7 +2,7 @@ package com.picpin.api.domain.oauth
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.picpin.api.domain.oauth.model.GenerateAccessToken
+import com.picpin.api.domain.oauth.model.JsonWebToken
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
@@ -18,10 +18,10 @@ class AccessTokenGenerator(
 ) {
     private val key = Algorithm.HMAC256(secret.toByteArray(StandardCharsets.UTF_8))
 
-    fun generate(accountId: Long): GenerateAccessToken {
+    fun generateAccessToken(accountId: Long): JsonWebToken {
         val accessExpireTime = LocalDateTime.now()
             .plusSeconds(accessTokenExpireTime)
-            .atZone(ZoneId.systemDefault()).toInstant()
+            .atZone(ZoneId.of("Asia/Seoul")).toInstant()
 
         val payload = JWT.create()
             .withIssuer(issuer)
@@ -30,7 +30,7 @@ class AccessTokenGenerator(
             .withExpiresAt(Date.from(accessExpireTime))
             .sign(key)
 
-        return GenerateAccessToken(payload, accessTokenExpireTime)
+        return JsonWebToken(payload, accessExpireTime.epochSecond)
     }
 
     companion object {

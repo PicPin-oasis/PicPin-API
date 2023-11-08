@@ -1,11 +1,13 @@
 package com.picpin.api.interfaces.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domain.oauth.model.GenerateAccessToken
+import com.picpin.api.domain.oauth.model.JsonWebToken
 
 data class OAuthResponse(
     @JsonProperty("access_token")
-    val accessToken: GenerateAccessToken,
+    val jsonWebToken: JsonWebToken,
+    @JsonProperty("refresh_token")
+    val refreshToken: JsonWebToken,
     @JsonProperty("token_type")
     val tokenType: String
 )
