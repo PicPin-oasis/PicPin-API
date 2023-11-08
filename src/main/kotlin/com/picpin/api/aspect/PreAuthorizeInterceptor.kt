@@ -1,6 +1,6 @@
 package com.picpin.api.aspect
 
-import com.picpin.api.domain.oauth.AccessTokenParser
+import com.picpin.api.domains.oauth.AccessTokenParser
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
