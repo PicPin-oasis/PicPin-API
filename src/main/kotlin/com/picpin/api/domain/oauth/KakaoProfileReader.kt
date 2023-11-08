@@ -1,6 +1,8 @@
 package com.picpin.api.domain.oauth
 
 import com.picpin.api.domain.oauth.model.KakaoUserInfo
+import com.picpin.api.verticals.domain.BusinessErrorCode
+import com.picpin.api.verticals.domain.BusinessException
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
@@ -35,11 +37,13 @@ class KakaoProfileReader(
                 return responseEntity.body!!
             } else {
                 logger.warn { "getKakaoAccount() failed. reason status code = $statusCode" }
-                throw RuntimeException("Failed to retrieve access token")
+                throw BusinessException.from(BusinessErrorCode.GET_KAKAO_USER_INFO_FAILED)
             }
         } catch (exception: Exception) {
-            logger.info { "exception = $exception" }
-            throw RuntimeException("Failed to retrieve access token")
+            throw BusinessException.of(
+                BusinessErrorCode.GET_KAKAO_USER_INFO_FAILED,
+                " ${exception.localizedMessage}"
+            )
         }
     }
 
