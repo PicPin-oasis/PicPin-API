@@ -18,7 +18,8 @@ import java.util.*
 @Service
 class S3Service(
     private val amazonS3: AmazonS3,
-    @Value("\${aws.bucket}") private val bucket: String
+    @Value("\${aws.bucket}") private val bucket: String,
+    @Value("\${aws.cloud_front}") private val cloudFront: String
 ) {
 
     fun generatePreSignedUrl(imageName: String): PreSignedUrl {
@@ -30,16 +31,13 @@ class S3Service(
         val presignedUrlRequest = generatePresignedUrlRequest(bucketKey, expiration, extension)
 
         val uploadUrl = amazonS3.generatePresignedUrl(presignedUrlRequest).toString()
-        return PreSignedUrl(uploadUrl, bucketKey)
+        return PreSignedUrl(cloudFront, bucketKey, uploadUrl)
     }
 
     private fun getFilenameExtension(imageName: String): String =
         when (val filenameExtension = StringUtils.getFilenameExtension(imageName)) {
             null -> {
                 ""
-            }
-            HEIC_FORMAT_NAME -> {
-                JPEG_FORMAT_NAME
             }
             else -> {
                 filenameExtension
@@ -80,8 +78,7 @@ class S3Service(
     }
 
     companion object {
-        private val ALLOWED_IMAGE_LIST = listOf("jpg", "jpeg", "png", "heic")
-        private const val HEIC_FORMAT_NAME = "heic"
+        private val ALLOWED_IMAGE_LIST = listOf("jpg", "jpeg", "png")
         private const val JPEG_FORMAT_NAME = "jpeg"
     }
 }
