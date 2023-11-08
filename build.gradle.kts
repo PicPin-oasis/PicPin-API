@@ -36,6 +36,8 @@ dependencies {
 
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
 }
 

@@ -1,8 +1,8 @@
 package com.picpin.api.configuration
 
-import com.picpin.api.aspect.AccountArgumentResolver
-import com.picpin.api.aspect.PreAuthorizeInterceptor
-import com.picpin.api.domain.oauth.AccessTokenParser
+import com.picpin.api.domains.oauth.AccessTokenParser
+import com.picpin.api.verticals.web.AccountArgumentResolver
+import com.picpin.api.verticals.web.PreAuthorizeInterceptor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
@@ -34,7 +34,7 @@ class WebMvcConfiguration(
 
             override fun addInterceptors(registry: InterceptorRegistry) {
                 registry.addInterceptor(preAuthorizeInterceptor())
-                    .excludePathPatterns("/oauth2/code/kakao", "/health-check")
+                    .excludePathPatterns("/oauth2/code/kakao", "/health-check", "/error", "/favicon.ico")
                     .addPathPatterns("/**")
             }
 
