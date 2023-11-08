@@ -33,7 +33,7 @@ class PreAuthorizeInterceptor(
     private fun validateAccessToken(
         splittingAccessToken: List<String>,
         request: HttpServletRequest,
-        accessToken: String,
+        accessToken: String
     ) {
         if (splittingAccessToken.isEmpty() || splittingAccessToken.size != 2) {
             BusinessException.of(

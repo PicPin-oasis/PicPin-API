@@ -33,7 +33,7 @@ class AccessTokenGenerator(
 
     private fun createAccessToken(
         accountId: Long,
-        accessExpireTime: Instant?,
+        accessExpireTime: Instant?
     ) = try {
         JWT.create()
             .withIssuer(issuer)

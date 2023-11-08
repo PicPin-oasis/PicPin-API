@@ -25,7 +25,7 @@ class AccessTokenParser(
         } catch (exception: Exception) {
             throw BusinessException.of(
                 BusinessErrorCode.INVALID_JWT_TOKEN,
-                "${exception.localizedMessage}, accessToken = ${accessToken}"
+                "${exception.localizedMessage}, accessToken = $accessToken"
             )
         }
 }

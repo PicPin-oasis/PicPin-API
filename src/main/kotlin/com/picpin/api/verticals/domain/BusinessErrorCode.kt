@@ -17,5 +17,5 @@ enum class BusinessErrorCode(
 
     // JWT
     INVALID_JWT_TOKEN(1000, "", HttpStatus.UNAUTHORIZED),
-    JWT_CREATE_FAILED(1003, "", HttpStatus.INTERNAL_SERVER_ERROR),
+    JWT_CREATE_FAILED(1003, "", HttpStatus.INTERNAL_SERVER_ERROR)
 }
