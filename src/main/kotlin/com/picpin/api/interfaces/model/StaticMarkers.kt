@@ -21,9 +21,8 @@ enum class MarkerColorCode(val id: Int, val enableHexCode: String, val disableHe
     PURPLE(7, "#B426F6", "#F4DEFE");
 
     companion object {
-        fun findBy(markerColorId: Int) = values()
+        fun findBy(markerColorId: Int): MarkerColorCode? = values()
             .find { it.id == markerColorId }
-            ?: throw BusinessException.from(BusinessErrorCode.MARKER_COLOR_NOT_FOUND)
     }
 }
 

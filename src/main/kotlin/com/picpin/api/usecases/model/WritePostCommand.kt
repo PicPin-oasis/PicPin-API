@@ -1,5 +1,6 @@
 package com.picpin.api.usecases.model
 
+import com.picpin.api.domains.photo.Photo
 import com.picpin.api.domains.post.Post
 import com.picpin.api.domains.post.coordinate.PointFactory
 import com.picpin.api.domains.post.coordinate.PostCoordinate
@@ -39,6 +40,9 @@ data class WritePostCommand(
             takenPhotoDate = takenPhotoDate,
             postCoordinateId = postCoordinateId
         )
+
+    fun toPhotos(postId: Long): List<Photo> =
+        photos.map { Photo(postId, accountId, it) }
 }
 
 data class WritePostPhoto(val imageUrl: String)
