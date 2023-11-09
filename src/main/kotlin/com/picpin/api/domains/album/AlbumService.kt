@@ -10,4 +10,9 @@ class AlbumService(
 
     @Transactional(readOnly = true)
     fun findOneOrThrow(albumId: Long): Album = albumRepository.findOneOrThrow(albumId)
+
+    @Transactional(readOnly = true)
+    fun findAllBy(accountId: Long): List<Album> = albumRepository.findAllByOwnerId(accountId)
+
+    fun save(album: Album): Album = albumRepository.save(album)
 }

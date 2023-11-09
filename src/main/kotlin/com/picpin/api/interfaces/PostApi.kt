@@ -1,8 +1,10 @@
 package com.picpin.api.interfaces
 
+import com.picpin.api.interfaces.model.GetMyPostsResponse
 import com.picpin.api.interfaces.model.ModifyPostRequest
 import com.picpin.api.interfaces.model.WritePostRequest
 import com.picpin.api.interfaces.model.toCommand
+import com.picpin.api.usecases.GetMyPostsUseCase
 import com.picpin.api.usecases.ModifyPostUseCase
 import com.picpin.api.usecases.WritePostUseCase
 import com.picpin.api.verticals.web.model.AccountId
@@ -11,6 +13,7 @@ import jakarta.validation.constraints.Min
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -24,7 +27,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/posts")
 class PostApi(
     private val writePostUseCase: WritePostUseCase,
-    private val modifyPostUseCase: ModifyPostUseCase
+    private val modifyPostUseCase: ModifyPostUseCase,
+    private val getMyPostsUseCase: GetMyPostsUseCase
 ) {
 
     @PostMapping
@@ -46,5 +50,14 @@ class PostApi(
     ): ResponseEntity<Unit> {
         modifyPostUseCase.process(request.toCommand(accountId, postId, albumId))
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+    @GetMapping
+    fun getMyPosts(
+        @AccountId accountId: Long,
+        @RequestParam("only_un_mapped") onlyUnMapped: Boolean?
+    ): ResponseEntity<GetMyPostsResponse> {
+        val response = getMyPostsUseCase.process(accountId, onlyUnMapped ?: false)
+        return ResponseEntity.ok(response)
     }
 }

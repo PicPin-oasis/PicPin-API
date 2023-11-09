@@ -10,6 +10,7 @@ import jakarta.persistence.Index
 import jakarta.persistence.Table
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Entity
 @Table(
@@ -29,7 +30,9 @@ class Photo(
     val id: Long = 0L
 ) : BaseTimeEntity()
 
-interface PhotoRepository : JpaRepository<Photo, Long>
+interface PhotoRepository : JpaRepository<Photo, Long> {
+    fun findAllByPostIdIn(postId: List<Long>): List<Photo>
+}
 
 @Service
 class PhotoService(
@@ -43,4 +46,7 @@ class PhotoService(
     fun deleteAll(photos: List<Photo>) {
         photoRepository.deleteAll(photos)
     }
+
+    @Transactional(readOnly = true)
+    fun findAllBy(postIds: List<Long>): List<Photo> = photoRepository.findAllByPostIdIn(postIds)
 }
