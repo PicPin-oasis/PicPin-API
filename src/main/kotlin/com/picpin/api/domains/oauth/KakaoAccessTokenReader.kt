@@ -1,8 +1,8 @@
 package com.picpin.api.domains.oauth
 
 import com.picpin.api.domains.oauth.model.KakaoAccessToken
-import com.picpin.api.verticals.domain.BusinessErrorCode
-import com.picpin.api.verticals.domain.BusinessException
+import com.picpin.api.verticals.domain.exception.BusinessErrorCode
+import com.picpin.api.verticals.domain.exception.BusinessException
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value

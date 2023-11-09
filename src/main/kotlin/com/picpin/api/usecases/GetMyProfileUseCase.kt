@@ -10,7 +10,7 @@ class GetMyProfileUseCase(
 ) {
 
     fun process(accountId: Long): MyProfileResponse {
-        val account = accountService.findBy(accountId)
+        val account = accountService.findOneOrThrow(accountId)
         return MyProfileResponse(account.id!!, account.profileImageUrl, account.username)
     }
 }

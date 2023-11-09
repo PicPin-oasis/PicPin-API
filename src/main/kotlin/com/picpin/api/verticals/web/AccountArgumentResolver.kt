@@ -1,5 +1,6 @@
 package com.picpin.api.verticals.web
 
+import com.picpin.api.verticals.web.model.AccountId
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest

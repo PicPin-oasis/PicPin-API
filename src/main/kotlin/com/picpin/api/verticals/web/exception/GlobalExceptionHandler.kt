@@ -1,7 +1,7 @@
 package com.picpin.api.verticals.web.exception
 
-import com.picpin.api.verticals.domain.BusinessErrorCode
-import com.picpin.api.verticals.domain.BusinessException
+import com.picpin.api.verticals.domain.exception.BusinessErrorCode
+import com.picpin.api.verticals.domain.exception.BusinessException
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
@@ -49,8 +49,10 @@ class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException::class)
     fun handleBusinessException(exception: BusinessException): ResponseEntity<ExceptionResponse> {
         val errorCode: BusinessErrorCode = exception.errorCode
-        logger.info { "MethodArgumentTypeMismatchException. reason = ${errorCode.defaultMessage} ${exception.reason}" }
-        return ResponseEntity.status(errorCode.httpStatus).body(ExceptionResponse(errorCode.errorCode))
+        logger.info { "BusinessException. reason = ${errorCode.defaultMessage} ${exception.reason}" }
+
+        val exceptionResponse = ExceptionResponse(errorCode.errorCode, errorCode.defaultMessage)
+        return ResponseEntity.status(errorCode.httpStatus).body(exceptionResponse)
     }
 
     @ExceptionHandler(Exception::class)

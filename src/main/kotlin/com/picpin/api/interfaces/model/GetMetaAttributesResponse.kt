@@ -1,9 +1,6 @@
 package com.picpin.api.interfaces.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domains.base.StaticMarkerColor
-import com.picpin.api.domains.base.StaticMarkerColorFilter
-import com.picpin.api.domains.base.StaticProvinceFilter
 
 data class GetMetaAttributesResponse(
     @JsonProperty("province_filters")
