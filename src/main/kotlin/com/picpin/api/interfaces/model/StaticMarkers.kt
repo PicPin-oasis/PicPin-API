@@ -1,8 +1,6 @@
 package com.picpin.api.interfaces.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.verticals.domain.exception.BusinessErrorCode
-import com.picpin.api.verticals.domain.exception.BusinessException
 
 val staticMarkerColors =
     MarkerColorCode.values().map { StaticMarkerColor(it.id, it.enableHexCode) }
