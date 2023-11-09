@@ -1,0 +1,3 @@
+GET {{apiAddress}}/albums
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0NjE5OCwianRpIjoiMSJ9.W4IGVpHOJTTX3N6FbUIlxvEQ1T60Vppp7Op5gqw3A_0
