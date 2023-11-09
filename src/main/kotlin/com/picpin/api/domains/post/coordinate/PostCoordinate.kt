@@ -21,10 +21,30 @@ class PostCoordinate(
     @Column(nullable = false, length = 100, name = "account_id")
     val accountId: Long,
     @Column(nullable = false, length = 100, name = "province_id")
-    val provinceId: Int,
+    var provinceId: Int,
     @Column(nullable = false, columnDefinition = "POINT SRID 4326")
-    val point: Point,
+    var point: Point,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
-) : BaseTimeEntity()
+    val id: Long = 0L
+) : BaseTimeEntity() {
+
+    fun isOwner(accountId: Long): Boolean = this.accountId == accountId
+
+    fun update(transientPostCoordinate: TransientPostCoordinate) {
+        if (this.provinceId != transientPostCoordinate.provinceId) {
+            this.provinceId = transientPostCoordinate.provinceId
+        }
+
+        if (this.point != transientPostCoordinate.point) {
+            this.point = transientPostCoordinate.point
+        }
+    }
+}
+
+data class TransientPostCoordinate(
+    var id: Long,
+    val accountId: Long,
+    val provinceId: Int,
+    val point: Point,
+)

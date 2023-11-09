@@ -10,11 +10,16 @@ enum class BusinessErrorCode(
 
     // Account
     ACCOUNT_NOT_FOUND(100, "Not found account id.", HttpStatus.NOT_FOUND),
+    THIS_ACCOUNT_IS_NOT_OWNER(100, "Not found account id.", HttpStatus.NOT_FOUND),
 
     // Post
+    POST_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),
+
+    // Post coordinate
+    POST_COORDINATE_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),
 
     // Album
-    ALBUM_NOT_FOUND(300, "Not found album id.", HttpStatus.NOT_FOUND),
+    ALBUM_NOT_FOUND(400, "Not found album id.", HttpStatus.NOT_FOUND),
 
     // Marker
     MARKER_COLOR_NOT_FOUND(800, "Not found marker color id.", HttpStatus.NOT_FOUND),

@@ -21,10 +21,12 @@ data class WritePostRequest(
     val markerHexCode: String,
 
     @get:NotBlank
-    val x: String,
+    @JsonProperty("x")
+    val longitude: String,
 
     @get:NotBlank
-    val y: String,
+    @JsonProperty("y")
+    val latitude: String,
 
     @get:NotNull
     @get:Min(11)
@@ -59,8 +61,8 @@ fun WritePostRequest.toCommand(accountId: Long, albumId: Long?): WritePostComman
         title = title,
         memo = memo,
         markerHexCode = markerHexCode,
-        x = x,
-        y = y,
+        x = longitude,
+        y = latitude,
         provinceId = provinceId,
         takenPhotoAddress = takenPhotoAddress,
         takenPhotoDate = takenPhotoDate,

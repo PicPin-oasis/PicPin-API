@@ -18,22 +18,45 @@ import java.time.LocalDate
 )
 class Post(
     @Column(nullable = true, name = "album_id")
-    val albumId: Long?,
+    var albumId: Long?,
     @Column(nullable = false, name = "writer_id")
     val writerId: Long,
     @Column(nullable = false, length = 10)
-    val title: String,
+    var title: String,
     @Column(nullable = false, length = 100)
-    val memo: String,
+    var memo: String,
     @Column(nullable = false, length = 7, name = "marker_hex_code")
-    val markerHexCode: String,
+    var markerHexCode: String,
     @Column(nullable = false, length = 50, name = "taken_photo_address")
-    val takenPhotoAddress: String,
+    var takenPhotoAddress: String,
     @Column(nullable = false, length = 50, name = "taken_photo_date")
-    val takenPhotoDate: LocalDate,
+    var takenPhotoDate: LocalDate,
     @Column(nullable = false, length = 100, name = "post_coordinate_id")
     val postCoordinateId: Long,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
-) : BaseTimeEntity()
+    val id: Long = 0L
+) : BaseTimeEntity() {
+
+    fun isOwner(writerId: Long): Boolean = this.writerId == writerId
+
+    fun update(transientPost: TransientPost) {
+        transientPost.albumId?.let { this.albumId = it }
+        transientPost.title?.let { this.title = it }
+        transientPost.memo?.let { this.memo = it }
+        transientPost.markerHexCode?.let { this.markerHexCode = it }
+        transientPost.takenPhotoAddress?.let { this.takenPhotoAddress = it }
+        transientPost.takenPhotoDate?.let { this.takenPhotoDate = it }
+    }
+}
+
+data class TransientPost(
+    val id: Long,
+    val albumId: Long?,
+    val writerId: Long,
+    val title: String?,
+    val memo: String?,
+    val markerHexCode: String?,
+    val takenPhotoAddress: String?,
+    val takenPhotoDate: LocalDate?,
+)
