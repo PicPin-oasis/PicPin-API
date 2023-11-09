@@ -1,4 +1,4 @@
-package com.picpin.api.verticals.domain
+package com.picpin.api.verticals.domain.exception
 
 import java.lang.RuntimeException
 

@@ -1,4 +1,4 @@
-package com.picpin.api.domains.base
+package com.picpin.api.interfaces.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,6 +23,10 @@ enum class ProvinceCode(val id: Int, val code: Int, val rootName: String) {
     GYEONGSANGNAMDO(14, 48, "경남"),
     JEJUDO(15, 50, "제주"),
     SEJONG(16, 36, "세종");
+
+    companion object {
+        fun findBy(provinceId: Int): ProvinceCode? = values().find { it.id == provinceId }
+    }
 }
 
 data class StaticProvinceFilter(
