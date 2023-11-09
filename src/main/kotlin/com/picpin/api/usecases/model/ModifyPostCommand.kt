@@ -1,5 +1,6 @@
 package com.picpin.api.usecases.model
 
+import com.picpin.api.domains.photo.Photo
 import com.picpin.api.domains.post.TransientPost
 import com.picpin.api.domains.post.coordinate.PointFactory
 import com.picpin.api.domains.post.coordinate.TransientPostCoordinate
@@ -43,6 +44,9 @@ data class ModifyPostCommand(
             takenPhotoAddress = takenPhotoAddress,
             takenPhotoDate = takenPhotoDate
         )
+
+    fun toPhotos(): List<Photo> =
+        photos.map { Photo(postId, accountId, it.imageUrl, it.id) }
 }
 
 data class ModifyPostPhoto(val id: Long, val imageUrl: String)

@@ -1,6 +1,6 @@
 PUT {{apiAddress}}/posts/1
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0MjQ1OCwianRpIjoiMSJ9.hjvyYRbMoP5_tIBzIGET3GmbYj_YiW2Rp_JUm5NOF68
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0NjE5OCwianRpIjoiMSJ9.W4IGVpHOJTTX3N6FbUIlxvEQ1T60Vppp7Op5gqw3A_0
 
 {
   "title": "bbb",
@@ -14,7 +14,11 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsI
   "photos": [
     {
       "id": 1,
-      "image_url": "../image_url_1.jpg"
+      "image_url": "../change_image_url_1.jpg"
+    },
+    {
+      "id": null,
+      "image_url": "../change_image_url_1.jpg"
     }
   ]
 }

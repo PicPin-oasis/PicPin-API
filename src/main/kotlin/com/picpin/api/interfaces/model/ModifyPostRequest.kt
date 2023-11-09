@@ -79,7 +79,7 @@ fun ModifyPostRequest.toCommand(accountId: Long, postId: Long, albumId: Long?): 
 
 data class ModifyPostPhotoRequest(
     @get:NotNull
-    val id: Long,
+    val id: Long?,
 
     @get:NotBlank
     @JsonProperty("image_url")
@@ -87,4 +87,4 @@ data class ModifyPostPhotoRequest(
 )
 
 fun ModifyPostPhotoRequest.toPhoto(): ModifyPostPhoto =
-    ModifyPostPhoto(id, imageUrl)
+    ModifyPostPhoto(id ?: 0, imageUrl)
