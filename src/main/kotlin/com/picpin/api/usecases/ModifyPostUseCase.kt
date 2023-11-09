@@ -24,7 +24,8 @@ class ModifyPostUseCase(
 
         transactionHandler.runInTransaction {
             val targetPost = postService.modifyBy(command.toPost())
-            photoService.saveAll(command.toPhotos())
+            photoService.saveAll(command.toNewPhotos())
+            photoService.deleteAll(command.toDeletedPhotos())
 
             if (command.ifModifyPostCoordinate()) {
                 val postCoordinate = command.toPostCoordinate(targetPost.postCoordinateId)

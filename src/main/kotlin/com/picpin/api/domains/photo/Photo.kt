@@ -39,4 +39,8 @@ class PhotoService(
     fun saveAll(photos: List<Photo>) {
         photoRepository.saveAll(photos)
     }
+
+    fun deleteAll(photos: List<Photo>) {
+        photoRepository.deleteAll(photos)
+    }
 }

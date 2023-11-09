@@ -45,8 +45,11 @@ data class ModifyPostCommand(
             takenPhotoDate = takenPhotoDate
         )
 
-    fun toPhotos(): List<Photo> =
-        photos.map { Photo(postId, accountId, it.imageUrl, it.id) }
+    fun toNewPhotos(): List<Photo> =
+        photos.filter { !it.isDeleted }.map { Photo(postId, accountId, it.imageUrl, it.id) }
+
+    fun toDeletedPhotos(): List<Photo> =
+        photos.filter { it.isDeleted }.map { Photo(postId, accountId, it.imageUrl, it.id) }
 }
 
-data class ModifyPostPhoto(val id: Long, val imageUrl: String)
+data class ModifyPostPhoto(val id: Long, val imageUrl: String, val isDeleted: Boolean)
