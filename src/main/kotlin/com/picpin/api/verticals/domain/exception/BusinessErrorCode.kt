@@ -14,6 +14,8 @@ enum class BusinessErrorCode(
 
     // Post
     POST_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),
+    CONTAINS_UNSAVED_POST_IDS(201, "It contains an unsaved post id", HttpStatus.NOT_FOUND),
+    ALREADY_STORED_IN_ALBUM_POST(201, "You have a post is already saved to an album.", HttpStatus.NOT_FOUND),
 
     // Post coordinate
     POST_COORDINATE_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),

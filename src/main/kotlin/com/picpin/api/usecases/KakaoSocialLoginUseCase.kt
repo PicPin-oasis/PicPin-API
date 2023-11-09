@@ -30,9 +30,9 @@ class KakaoSocialLoginUseCase(
         )
 
         val account = accountService.ifNotExistsSignUp(kakaoUserInfo.toAccount())
-        val accessToken = tokenGenerator.generateAccessToken(account.id!!)
+        val accessToken = tokenGenerator.generateAccessToken(account.id)
         val kakaoRefreshToken = kakaoRefreshTokenService.ifNotExistsSave(
-            accountId = account.id!!,
+            accountId = account.id,
             vendorId = account.vendorId,
             payload = kakaoAccessToken.refreshToken,
             expireDateTimeToSec = kakaoAccessToken.refreshTokenExpiresIn.toLong()
