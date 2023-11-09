@@ -22,4 +22,26 @@ class PostService(
         targetPost.update(post)
         return targetPost
     }
+
+    fun saveAllToAlbum(albumId: Long, postIds: List<Long>) {
+        val uniquePostIds = postIds.toSet()
+        val targetPosts = postRepository.findAllById(uniquePostIds)
+        if (targetPosts.size != uniquePostIds.size) {
+            val targetPostMap = targetPosts.associateBy { it.id }
+            val unsavedUniqueIds = uniquePostIds.filter { targetPostMap[it] == null }
+
+            throw BusinessException.of(
+                BusinessErrorCode.CONTAINS_UNSAVED_POST_IDS,
+                "unsaved ids = $unsavedUniqueIds"
+            )
+        }
+
+        val alreadyStoredInAlbumPosts = targetPosts.filter { it.albumId != null }
+        if (alreadyStoredInAlbumPosts.isNotEmpty()) {
+            throw BusinessException.from(BusinessErrorCode.ALREADY_STORED_IN_ALBUM_POST)
+        }
+
+        targetPosts.forEach { it.albumId = albumId }
+        postRepository.saveAll(targetPosts)
+    }
 }

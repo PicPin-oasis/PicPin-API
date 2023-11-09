@@ -1,6 +1,6 @@
 POST {{apiAddress}}/posts
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0NjE5OCwianRpIjoiMSJ9.W4IGVpHOJTTX3N6FbUIlxvEQ1T60Vppp7Op5gqw3A_0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU1MDU4NSwianRpIjoiMSJ9.VWlB4eHRa6i2y7_wksh2XPzfevQBC9XflXOQmNUqDjg
 
 {
 	"title": "aaa",

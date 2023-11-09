@@ -27,8 +27,8 @@ oauth2:
   access_token_url: "https://kauth.kakao.com/oauth/token"
   get_user_info_url: "https://kapi.kakao.com/v2/user/me"
   redirect_url: ${KAKAO_REDIRECT_URL:http://localhost:8080/oauth2/code/kakao}
-  client_id: ${KAKAO_CLIENT_ID:7ac056ec12a1aba0fc28bdbf20fbc0ce}
-  client_secret: ${KAKAO_CLIENT_SECRET:j1nmy1aSMonYJE0FzII21cc4twPxobG1} # ${KAKAO_CLIENT_SECRET:#{null}}
+  client_id: ${KAKAO_CLIENT_ID:221c6144bc8aba0ec6691c07aa1640d3}
+  client_secret: ${KAKAO_CLIENT_SECRET:tYQ9koKXmnJpagVr4NoKvtJFqbDH6PGt} # ${KAKAO_CLIENT_SECRET:#{null}}KAKAO_CLIENT_SECRET:#{null}}
 
 jwt:
   issuer: ${JWT_ISSUER:local}

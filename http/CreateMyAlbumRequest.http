@@ -1,3 +1,11 @@
-GET {{apiAddress}}/albums
+POST {{apiAddress}}/albums
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU1MDU4NSwianRpIjoiMSJ9.VWlB4eHRa6i2y7_wksh2XPzfevQBC9XflXOQmNUqDjg
+
+{
+  "title": "tempalbum2",
+  "cover_image_url": "./cover_image_url.jpg",
+  "post_ids": [
+    3, 4
+  ]
+}
