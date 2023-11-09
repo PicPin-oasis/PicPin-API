@@ -83,8 +83,11 @@ data class ModifyPostPhotoRequest(
 
     @get:NotBlank
     @JsonProperty("image_url")
-    val imageUrl: String
+    val imageUrl: String,
+
+    @JsonProperty("is_deleted")
+    val isDeleted: Boolean
 )
 
 fun ModifyPostPhotoRequest.toPhoto(): ModifyPostPhoto =
-    ModifyPostPhoto(id ?: 0, imageUrl)
+    ModifyPostPhoto(id ?: 0, imageUrl, isDeleted)
