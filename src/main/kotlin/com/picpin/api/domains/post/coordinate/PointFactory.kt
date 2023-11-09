@@ -1,6 +1,5 @@
 package com.picpin.api.domains.post.coordinate
 
-import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Point
 import org.locationtech.jts.io.WKTReader
 

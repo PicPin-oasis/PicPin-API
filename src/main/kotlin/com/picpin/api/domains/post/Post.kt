@@ -58,5 +58,5 @@ data class TransientPost(
     val memo: String?,
     val markerHexCode: String?,
     val takenPhotoAddress: String?,
-    val takenPhotoDate: LocalDate?,
+    val takenPhotoDate: LocalDate?
 )

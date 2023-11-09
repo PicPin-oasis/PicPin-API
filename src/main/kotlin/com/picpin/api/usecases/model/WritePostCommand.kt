@@ -37,7 +37,7 @@ data class WritePostCommand(
             markerHexCode = markerHexCode,
             takenPhotoAddress = takenPhotoAddress,
             takenPhotoDate = takenPhotoDate,
-            postCoordinateId = postCoordinateId,
+            postCoordinateId = postCoordinateId
         )
 }
 

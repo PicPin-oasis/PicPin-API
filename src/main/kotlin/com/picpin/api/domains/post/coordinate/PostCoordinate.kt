@@ -46,5 +46,5 @@ data class TransientPostCoordinate(
     var id: Long,
     val accountId: Long,
     val provinceId: Int,
-    val point: Point,
+    val point: Point
 )

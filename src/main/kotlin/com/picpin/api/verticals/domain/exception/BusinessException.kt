@@ -1,7 +1,5 @@
 package com.picpin.api.verticals.domain.exception
 
-import java.lang.RuntimeException
-
 class BusinessException(
     val errorCode: BusinessErrorCode,
     val reason: String

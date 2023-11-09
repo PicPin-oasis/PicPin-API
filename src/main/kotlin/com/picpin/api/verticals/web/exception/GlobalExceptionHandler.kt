@@ -11,8 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
-import java.lang.Exception
-import java.lang.Void
 
 @ControllerAdvice
 class GlobalExceptionHandler {

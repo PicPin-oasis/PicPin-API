@@ -12,7 +12,7 @@ class WritePostUseCase(
     private val albumService: AlbumService,
     private val postCoordinateService: PostCoordinateService,
     private val postService: PostService,
-    private val transactionHandler: TransactionHandler,
+    private val transactionHandler: TransactionHandler
 ) {
 
     fun process(command: WritePostCommand) {

@@ -4,8 +4,7 @@ import com.picpin.api.verticals.domain.exception.BusinessErrorCode
 import com.picpin.api.verticals.domain.exception.BusinessException
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface AlbumRepository : JpaRepository<Album, Long> {
-}
+interface AlbumRepository : JpaRepository<Album, Long>
 
 fun AlbumRepository.findOneOrThrow(albumId: Long): Album {
     return findById(albumId).orElseThrow {

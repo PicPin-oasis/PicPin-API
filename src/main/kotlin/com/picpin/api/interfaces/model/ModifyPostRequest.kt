@@ -5,7 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.picpin.api.domains.base.HEX_CODE_REGEX
 import com.picpin.api.usecases.model.ModifyPostCommand
 import com.picpin.api.usecases.model.ModifyPostPhoto
-import jakarta.validation.constraints.*
+import jakarta.validation.constraints.AssertTrue
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
 import java.time.LocalDate
 
 data class ModifyPostRequest(
@@ -39,16 +44,16 @@ data class ModifyPostRequest(
     val photos: List<ModifyPostPhotoRequest> = emptyList()
 ) {
 
-    @AssertTrue
+    @AssertTrue(message = "The province code, taken photo address, longtude, and latitude are all required.")
     @JsonIgnore
     fun isAllowedProvinceId(): Boolean {
         return if (provinceId != null) {
             val isAllowedProvinceCode = ProvinceCode.findBy(provinceId) != null
             val isAllowedTakenPhotoAddress = takenPhotoAddress.isNullOrBlank()
-            val isAllowX = longtitue.isNullOrBlank()
-            val isAllowY = lattitue.isNullOrBlank()
+            val isAllowLongitude = longitude.isNullOrBlank()
+            val isAllowLatitude = latitude.isNullOrBlank()
 
-            isAllowedProvinceCode && isAllowedTakenPhotoAddress && isAllowX && isAllowY
+            isAllowedProvinceCode && isAllowedTakenPhotoAddress && isAllowLongitude && isAllowLatitude
         } else {
             true
         }
@@ -63,8 +68,8 @@ fun ModifyPostRequest.toCommand(accountId: Long, postId: Long, albumId: Long?): 
         title = title,
         memo = memo,
         markerHexCode = markerHexCode,
-        x = longtitue,
-        y = lattitue,
+        x = longitude,
+        y = latitude,
         provinceId = provinceId,
         takenPhotoAddress = takenPhotoAddress,
         takenPhotoDate = takenPhotoDate,

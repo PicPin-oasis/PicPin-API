@@ -8,7 +8,8 @@ val staticMarkerColors =
     MarkerColorCode.values().map { StaticMarkerColor(it.id, it.enableHexCode) }
 
 val staticMarkerColorFilters =
-    MarkerColorCode.values().map { StaticMarkerColorFilter(it.id, it.enableHexCode, it.disableHexCode, false) }
+    MarkerColorCode.values()
+        .map { StaticMarkerColorFilter(it.id, it.enableHexCode, it.disableHexCode, false) }
 
 enum class MarkerColorCode(val id: Int, val enableHexCode: String, val disableHexCode: String) {
     RED(1, "#FF0000", "#FFD9D9"),

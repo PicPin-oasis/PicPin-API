@@ -5,7 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.picpin.api.domains.base.HEX_CODE_REGEX
 import com.picpin.api.usecases.model.WritePostCommand
 import com.picpin.api.usecases.model.WritePostPhoto
-import jakarta.validation.constraints.*
+import jakarta.validation.constraints.AssertTrue
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Size
 import java.time.LocalDate
 
 data class WritePostRequest(

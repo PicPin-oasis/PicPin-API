@@ -4,8 +4,7 @@ import com.picpin.api.verticals.domain.exception.BusinessErrorCode
 import com.picpin.api.verticals.domain.exception.BusinessException
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface PostCoordinateRepository : JpaRepository<PostCoordinate, Long> {
-}
+interface PostCoordinateRepository : JpaRepository<PostCoordinate, Long>
 
 fun PostCoordinateRepository.findBy(postCoordinateId: Long): PostCoordinate {
     return findById(postCoordinateId).orElseThrow {

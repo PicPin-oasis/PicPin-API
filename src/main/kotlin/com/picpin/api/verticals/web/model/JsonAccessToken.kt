@@ -8,7 +8,10 @@ class JsonAccessToken(authorizationHeaderValue: String?, requestUrl: String) {
 
     init {
         if (authorizationHeaderValue == null) {
-            throw BusinessException(BusinessErrorCode.INVALID_VERIFIED_JWT_TOKEN, "Missing Authorization Header.")
+            throw BusinessException(
+                BusinessErrorCode.INVALID_VERIFIED_JWT_TOKEN,
+                "Missing Authorization Header."
+            )
         }
 
         if (!authorizationHeaderValue.contains("Bearer")) {

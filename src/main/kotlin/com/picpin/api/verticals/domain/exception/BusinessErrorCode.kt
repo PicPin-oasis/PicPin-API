@@ -29,7 +29,11 @@ enum class BusinessErrorCode(
     GET_KAKAO_USER_INFO_FAILED(901, "Failed to retrieve User Info.", HttpStatus.UNAUTHORIZED),
 
     // JWT
-    INVALID_VERIFIED_JWT_TOKEN(1000, "The Token's Signature resulted invalid when verified using the Algorithm", HttpStatus.UNAUTHORIZED),
+    INVALID_VERIFIED_JWT_TOKEN(
+        1000,
+        "The Token's Signature resulted invalid when verified using the Algorithm",
+        HttpStatus.UNAUTHORIZED
+    ),
     EXPIRED_JWT_TOKEN(1001, "This Token is Expired.", HttpStatus.UNAUTHORIZED),
     IS_NOT_BEARER_TOKEN(1002, "This Token is Not Bearer Type.", HttpStatus.BAD_REQUEST),
     JWT_CREATE_FAILED(1003, "", HttpStatus.INTERNAL_SERVER_ERROR)

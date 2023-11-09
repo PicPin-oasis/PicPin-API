@@ -41,7 +41,7 @@ data class ModifyPostCommand(
             memo = memo,
             markerHexCode = markerHexCode,
             takenPhotoAddress = takenPhotoAddress,
-            takenPhotoDate = takenPhotoDate,
+            takenPhotoDate = takenPhotoDate
         )
 }
 
