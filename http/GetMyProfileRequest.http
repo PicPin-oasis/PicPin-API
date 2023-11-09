@@ -1,0 +1,3 @@
+GET {{apiAddress}}/accounts/my-profile
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTUxOTA4MSwianRpIjoiMSJ9.xZSHkfQLjJpczpIiZ9RQrSQa_zI6XNaYMoFN3DXV8aM
