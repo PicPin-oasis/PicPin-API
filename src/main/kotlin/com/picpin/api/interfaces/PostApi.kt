@@ -6,6 +6,7 @@ import com.picpin.api.interfaces.model.toCommand
 import com.picpin.api.usecases.ModifyPostUseCase
 import com.picpin.api.usecases.WritePostUseCase
 import com.picpin.api.verticals.web.model.AccountId
+import jakarta.validation.Valid
 import jakarta.validation.constraints.Min
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -28,7 +29,7 @@ class PostApi(
 
     @PostMapping
     fun writePost(
-        @RequestBody request: WritePostRequest,
+        @Valid @RequestBody request: WritePostRequest,
         @AccountId accountId: Long,
         @RequestParam("album_id") albumId: Long?
     ): ResponseEntity<Unit> {
@@ -38,7 +39,7 @@ class PostApi(
 
     @PutMapping("/{postId}")
     fun modifyPost(
-        @RequestBody request: ModifyPostRequest,
+        @Valid @RequestBody request: ModifyPostRequest,
         @AccountId accountId: Long,
         @PathVariable @Min(1L) postId: Long,
         @RequestParam("album_id") albumId: Long?

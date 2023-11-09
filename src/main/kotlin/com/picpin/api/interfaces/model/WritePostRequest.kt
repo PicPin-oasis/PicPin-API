@@ -2,15 +2,12 @@ package com.picpin.api.interfaces.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.domains.base.HEX_CODE_REGEX
 import com.picpin.api.usecases.model.WritePostCommand
-import com.picpin.api.usecases.model.WritePostPhoto
 import jakarta.validation.constraints.AssertTrue
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import java.time.LocalDate
 
@@ -21,10 +18,10 @@ data class WritePostRequest(
     @get:Size(max = 100)
     val memo: String,
 
-    @get:NotBlank
-    @get:Pattern(regexp = HEX_CODE_REGEX)
-    @JsonProperty("marker_hex_code")
-    val markerHexCode: String,
+    @get:NotNull
+    @get:Min(1)
+    @JsonProperty("marker_color_id")
+    val markerColorId: Int,
 
     @get:NotBlank
     @JsonProperty("x")
@@ -36,7 +33,7 @@ data class WritePostRequest(
 
     @get:NotNull
     @get:Min(11)
-    @JsonProperty("province_id")
+    @JsonProperty("province_code")
     val provinceId: Int,
 
     @get:NotBlank
@@ -48,15 +45,19 @@ data class WritePostRequest(
     val takenPhotoDate: LocalDate,
 
     @get:NotEmpty
-    val photos: List<WritePostPhotoRequest>
+    val photos: List<String>
 ) {
 
     @AssertTrue
     @JsonIgnore
     fun isAllowedProvinceId(): Boolean {
-        val provinceCode = ProvinceCode.findBy(provinceId)
+        return ProvinceCode.findBy(provinceId) != null
+    }
 
-        return provinceCode != null
+    @AssertTrue
+    @JsonIgnore
+    fun isAllowedMarkerColorId(): Boolean {
+        return MarkerColorCode.findBy(markerColorId) != null
     }
 }
 
@@ -66,20 +67,11 @@ fun WritePostRequest.toCommand(accountId: Long, albumId: Long?): WritePostComman
         albumId = albumId,
         title = title,
         memo = memo,
-        markerHexCode = markerHexCode,
+        markerColorId = MarkerColorCode.findBy(markerColorId)!!.id,
         x = longitude,
         y = latitude,
         provinceId = provinceId,
         takenPhotoAddress = takenPhotoAddress,
         takenPhotoDate = takenPhotoDate,
-        photos = photos.map { it.toPhoto() }
+        photos = photos
     )
-
-data class WritePostPhotoRequest(
-    @get:NotBlank
-    @JsonProperty("image_url")
-    val imageUrl: String
-)
-
-fun WritePostPhotoRequest.toPhoto(): WritePostPhoto =
-    WritePostPhoto(this.imageUrl)
