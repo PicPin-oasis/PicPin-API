@@ -16,7 +16,7 @@ class PostCoordinateService(
     @Transactional
     fun modifyBy(postCoordinate: TransientPostCoordinate): PostCoordinate {
         val targetPostCoordinate = postCoordinateRepository.findBy(postCoordinate.id)
-        if (targetPostCoordinate.isOwner(postCoordinate.accountId)) {
+        if (!targetPostCoordinate.isOwner(postCoordinate.accountId)) {
             throw BusinessException.from(BusinessErrorCode.THIS_ACCOUNT_IS_NOT_OWNER)
         }
 

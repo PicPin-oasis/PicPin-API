@@ -15,7 +15,7 @@ class PostService(
     @Transactional
     fun modifyBy(post: TransientPost): Post {
         val targetPost = postRepository.findOneOrThrow(post.id)
-        if (targetPost.isOwner(post.writerId)) {
+        if (!targetPost.isOwner(post.writerId)) {
             throw BusinessException.from(BusinessErrorCode.THIS_ACCOUNT_IS_NOT_OWNER)
         }
 
