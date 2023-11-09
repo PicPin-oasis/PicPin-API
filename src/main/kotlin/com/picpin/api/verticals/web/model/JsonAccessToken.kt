@@ -4,7 +4,7 @@ import com.picpin.api.verticals.domain.exception.BusinessErrorCode
 import com.picpin.api.verticals.domain.exception.BusinessException
 
 class JsonAccessToken(authorizationHeaderValue: String?, requestUrl: String) {
-    lateinit var payload: String
+    var payload: String
 
     init {
         if (authorizationHeaderValue == null) {

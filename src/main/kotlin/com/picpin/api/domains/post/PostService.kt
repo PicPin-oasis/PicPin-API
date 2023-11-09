@@ -44,4 +44,15 @@ class PostService(
         targetPosts.forEach { it.albumId = albumId }
         postRepository.saveAll(targetPosts)
     }
+
+    @Transactional(readOnly = true)
+    fun findAllBy(accountId: Long, onlyUnMapped: Boolean): List<Post> {
+        val targetPosts = postRepository.findAllByWriterId(accountId)
+
+        return if (onlyUnMapped) {
+            targetPosts.filter { it.albumId == null }
+        } else {
+            targetPosts
+        }
+    }
 }
