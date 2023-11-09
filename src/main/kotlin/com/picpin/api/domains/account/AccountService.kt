@@ -23,5 +23,5 @@ class AccountService(
     }
 
     @Transactional(readOnly = true)
-    fun findBy(accountId: Long): Account = accountRepository.findBy(accountId)
+    fun findOneOrThrow(accountId: Long): Account = accountRepository.findOneOrThrow(accountId)
 }

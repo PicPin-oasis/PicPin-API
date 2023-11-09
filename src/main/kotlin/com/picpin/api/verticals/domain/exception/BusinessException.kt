@@ -1,6 +1,4 @@
-package com.picpin.api.verticals.domain
-
-import java.lang.RuntimeException
+package com.picpin.api.verticals.domain.exception
 
 class BusinessException(
     val errorCode: BusinessErrorCode,

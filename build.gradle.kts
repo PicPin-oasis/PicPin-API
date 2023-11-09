@@ -28,6 +28,7 @@ dependencies {
     implementation("com.auth0:java-jwt:4.3.0")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
+    implementation("org.hibernate:hibernate-spatial:6.2.13.Final")
     runtimeOnly("com.mysql:mysql-connector-j:8.0.32")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")

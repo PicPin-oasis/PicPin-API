@@ -11,6 +11,10 @@ class GetUploadUrlUseCase(
 
     fun process(imageName: String): UploadUrlResponse {
         val preSignedUrl = s3Service.generatePreSignedUrl(imageName)
-        return UploadUrlResponse(preSignedUrl.cloudFrontHost, preSignedUrl.key, preSignedUrl.uploadUrl)
+        return UploadUrlResponse(
+            preSignedUrl.cloudFrontHost,
+            preSignedUrl.key,
+            preSignedUrl.uploadUrl
+        )
     }
 }

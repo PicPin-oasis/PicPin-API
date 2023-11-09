@@ -3,14 +3,15 @@ package com.picpin.api.domains.oauth
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.picpin.api.domains.oauth.model.JsonWebToken
-import com.picpin.api.verticals.domain.BusinessErrorCode
-import com.picpin.api.verticals.domain.BusinessException
+import com.picpin.api.verticals.domain.exception.BusinessErrorCode
+import com.picpin.api.verticals.domain.exception.BusinessException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.util.*
 
 @Component
@@ -27,9 +28,9 @@ class AccessTokenGenerator(
         return JsonWebToken(accessToken, accessExpireTime.epochSecond)
     }
 
-    private fun getAccessTokenExpireTime() = LocalDateTime.now()
+    private fun getAccessTokenExpireTime() = LocalDateTime.now(ZoneId.of("Asia/Seoul"))
         .plusSeconds(accessTokenExpireTime)
-        .atZone(ZoneId.of("Asia/Seoul")).toInstant()
+        .toInstant(ZoneOffset.of("+09:00"))
 
     private fun createAccessToken(
         accountId: Long,
