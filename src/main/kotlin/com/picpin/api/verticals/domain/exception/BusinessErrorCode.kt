@@ -10,7 +10,7 @@ enum class BusinessErrorCode(
 
     // Account
     ACCOUNT_NOT_FOUND(100, "Not found account id.", HttpStatus.NOT_FOUND),
-    THIS_ACCOUNT_IS_NOT_OWNER(100, "Not found account id.", HttpStatus.NOT_FOUND),
+    THIS_ACCOUNT_IS_NOT_OWNER(101, "is Not Owner.", HttpStatus.NOT_FOUND),
 
     // Post
     POST_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),
