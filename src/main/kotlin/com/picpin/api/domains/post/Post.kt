@@ -25,11 +25,11 @@ class Post(
     var title: String,
     @Column(nullable = false, length = 100)
     var memo: String,
-    @Column(nullable = false, length = 7, name = "marker_hex_code")
-    var markerHexCode: String,
-    @Column(nullable = false, length = 50, name = "taken_photo_address")
+    @Column(nullable = false, length = 7, name = "marker_color_id")
+    var markerColorId: Int,
+    @Column(nullable = false, length = 100, name = "taken_photo_address")
     var takenPhotoAddress: String,
-    @Column(nullable = false, length = 50, name = "taken_photo_date")
+    @Column(nullable = false, name = "taken_photo_date")
     var takenPhotoDate: LocalDate,
     @Column(nullable = false, length = 100, name = "post_coordinate_id")
     val postCoordinateId: Long,
@@ -44,7 +44,7 @@ class Post(
         transientPost.albumId?.let { this.albumId = it }
         transientPost.title?.let { this.title = it }
         transientPost.memo?.let { this.memo = it }
-        transientPost.markerHexCode?.let { this.markerHexCode = it }
+        transientPost.markerColorId?.let { this.markerColorId = it }
         transientPost.takenPhotoAddress?.let { this.takenPhotoAddress = it }
         transientPost.takenPhotoDate?.let { this.takenPhotoDate = it }
     }
@@ -56,7 +56,7 @@ data class TransientPost(
     val writerId: Long,
     val title: String?,
     val memo: String?,
-    val markerHexCode: String?,
+    val markerColorId: Int?,
     val takenPhotoAddress: String?,
     val takenPhotoDate: LocalDate?
 )

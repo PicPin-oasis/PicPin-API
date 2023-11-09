@@ -10,13 +10,13 @@ data class WritePostCommand(
     val albumId: Long?,
     val title: String,
     val memo: String,
-    val markerHexCode: String,
+    val markerColorId: Int,
     val x: String,
     val y: String,
     val provinceId: Int,
     val takenPhotoAddress: String,
     val takenPhotoDate: LocalDate,
-    val photos: List<WritePostPhoto>
+    val photos: List<String>
 ) {
 
     fun ifAddToOnAlbum(): Boolean = albumId != null
@@ -34,7 +34,7 @@ data class WritePostCommand(
             writerId = accountId,
             title = title,
             memo = memo,
-            markerHexCode = markerHexCode,
+            markerColorId = markerColorId,
             takenPhotoAddress = takenPhotoAddress,
             takenPhotoDate = takenPhotoDate,
             postCoordinateId = postCoordinateId

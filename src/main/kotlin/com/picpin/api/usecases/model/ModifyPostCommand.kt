@@ -11,7 +11,7 @@ data class ModifyPostCommand(
     val albumId: Long?,
     val title: String?,
     val memo: String?,
-    val markerHexCode: String?,
+    val markerColorId: Int,
     val x: String?,
     val y: String?,
     val provinceId: Int?,
@@ -39,7 +39,7 @@ data class ModifyPostCommand(
             writerId = accountId,
             title = title,
             memo = memo,
-            markerHexCode = markerHexCode,
+            markerColorId = markerColorId,
             takenPhotoAddress = takenPhotoAddress,
             takenPhotoDate = takenPhotoDate
         )
