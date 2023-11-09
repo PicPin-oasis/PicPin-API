@@ -1,18 +1,17 @@
 package com.picpin.api.verticals.web.exception
 
-import com.picpin.api.verticals.domain.BusinessErrorCode
-import com.picpin.api.verticals.domain.BusinessException
+import com.picpin.api.verticals.domain.exception.BusinessErrorCode
+import com.picpin.api.verticals.domain.exception.BusinessException
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
-import java.lang.Exception
-import java.lang.Void
 
 @ControllerAdvice
 class GlobalExceptionHandler {
@@ -46,11 +45,22 @@ class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage)
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    protected fun handleHttpMessageNotReadableException(
+        exception: HttpMessageNotReadableException
+    ): ResponseEntity<String> {
+        val errorMessage = exception.localizedMessage
+        logger.warn { "HttpMessageNotReadableException. reason = $errorMessage" }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage)
+    }
+
     @ExceptionHandler(BusinessException::class)
     fun handleBusinessException(exception: BusinessException): ResponseEntity<ExceptionResponse> {
         val errorCode: BusinessErrorCode = exception.errorCode
-        logger.info { "MethodArgumentTypeMismatchException. reason = ${errorCode.defaultMessage} ${exception.reason}" }
-        return ResponseEntity.status(errorCode.httpStatus).body(ExceptionResponse(errorCode.errorCode))
+        logger.info { "BusinessException. reason = ${errorCode.defaultMessage} ${exception.reason}" }
+
+        val exceptionResponse = ExceptionResponse(errorCode.errorCode, errorCode.defaultMessage)
+        return ResponseEntity.status(errorCode.httpStatus).body(exceptionResponse)
     }
 
     @ExceptionHandler(Exception::class)

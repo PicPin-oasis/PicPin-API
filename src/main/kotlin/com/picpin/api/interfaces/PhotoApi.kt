@@ -3,6 +3,7 @@ package com.picpin.api.interfaces
 import com.picpin.api.domains.photo.model.UploadUrlResponse
 import com.picpin.api.interfaces.model.GetUploadUrlRequest
 import com.picpin.api.usecases.GetUploadUrlUseCase
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -14,7 +15,7 @@ class PhotoApi(
 ) {
 
     @PostMapping("/photos/upload-url")
-    fun getUploadUrl(@RequestBody request: GetUploadUrlRequest): ResponseEntity<UploadUrlResponse> {
+    fun getUploadUrl(@Valid @RequestBody request: GetUploadUrlRequest): ResponseEntity<UploadUrlResponse> {
         val response = getUploadUrlUseCase.process(request.imageName)
         return ResponseEntity.ok(response)
     }

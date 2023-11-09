@@ -7,7 +7,7 @@ import com.picpin.api.domains.oauth.KakaoProfileReader
 import com.picpin.api.domains.oauth.KakaoRefreshTokenService
 import com.picpin.api.domains.oauth.model.JsonWebToken
 import com.picpin.api.domains.oauth.model.toAccount
-import com.picpin.api.interfaces.model.OAuthResponse
+import com.picpin.api.interfaces.model.SocialLoginResponse
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
@@ -22,7 +22,7 @@ class KakaoSocialLoginUseCase(
 ) {
     val logger: KLogger = KotlinLogging.logger { }
 
-    fun process(authCode: String): OAuthResponse {
+    fun process(authCode: String): SocialLoginResponse {
         val kakaoAccessToken = kakaoAccessTokenReader.getAccessToken(authCode)
         val kakaoUserInfo = kakaoProfileReader.getKakaoUserInfo(
             tokenType = kakaoAccessToken.tokenType,
@@ -38,7 +38,7 @@ class KakaoSocialLoginUseCase(
             expireDateTimeToSec = kakaoAccessToken.refreshTokenExpiresIn.toLong()
         )
 
-        return OAuthResponse(
+        return SocialLoginResponse(
             jsonWebToken = accessToken,
             refreshToken = JsonWebToken.from(kakaoRefreshToken),
             tokenType = kakaoAccessToken.tokenType

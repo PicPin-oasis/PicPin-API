@@ -1,0 +1,18 @@
+POST {{apiAddress}}/posts
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0NjE5OCwianRpIjoiMSJ9.W4IGVpHOJTTX3N6FbUIlxvEQ1T60Vppp7Op5gqw3A_0
+
+{
+	"title": "aaa",
+	"memo": "sample post memo",
+	"marker_color_id": 1,
+	"x": "126.97725",
+	"y": "37.570892",
+	"province_code": 11,
+	"taken_photo_address": "서울..",
+	"taken_photo_date": "2023-11-03",
+	"photos": [
+		"../image_url_1.jpg",
+		"../image_url_2.jpg"
+	]
+}

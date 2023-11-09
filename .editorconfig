@@ -1,0 +1,4 @@
+root = true
+
+[*]
+ktlint_disabled_rules = annotation

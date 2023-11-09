@@ -1,8 +1,8 @@
 package com.picpin.api.domains.oauth
 
 import com.picpin.api.domains.oauth.model.KakaoAccessToken
-import com.picpin.api.verticals.domain.BusinessErrorCode
-import com.picpin.api.verticals.domain.BusinessException
+import com.picpin.api.verticals.domain.exception.BusinessErrorCode
+import com.picpin.api.verticals.domain.exception.BusinessException
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
@@ -27,10 +27,15 @@ class KakaoAccessTokenReader(
     fun getAccessToken(authCode: String): KakaoAccessToken {
         val httpHeaders = getHttpHeaders()
         val requestParams: MultiValueMap<String, String> = getRequestParams(authCode)
-        val requestEntity: HttpEntity<MultiValueMap<String, String>> = HttpEntity(requestParams, httpHeaders)
+        val requestEntity: HttpEntity<MultiValueMap<String, String>> =
+            HttpEntity(requestParams, httpHeaders)
 
         try {
-            val responseEntity = restTemplate.postForEntity(accessTokenUrl, requestEntity, KakaoAccessToken::class.java)
+            val responseEntity = restTemplate.postForEntity(
+                accessTokenUrl,
+                requestEntity,
+                KakaoAccessToken::class.java
+            )
 
             val statusCode = responseEntity.statusCode
             if (statusCode.is2xxSuccessful) {
