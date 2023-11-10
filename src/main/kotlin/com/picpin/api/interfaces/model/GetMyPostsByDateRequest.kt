@@ -5,7 +5,7 @@ import com.picpin.api.domains.photo.Photo
 import com.picpin.api.domains.post.Post
 import java.time.LocalDate
 
-class GetMyPostsByDate {
+class GetMyPostsByDatesResponse {
     data class PostSections(
         @JsonProperty("post_sections")
         val postSections: List<PostSection>
@@ -28,14 +28,11 @@ class GetMyPostsByDate {
         val moreImageCount: Int
     ) {
         companion object {
-            fun create(post: Post, groupingPhotoByPostId: Map<Long, List<Photo>>): PostCard? {
+            fun create(post: Post, groupingPhotoByPostId: Map<Long, List<Photo>>): PostCard {
                 val photosByPostId = groupingPhotoByPostId[post.id]
-                if (photosByPostId.isNullOrEmpty()) {
-                    return null
-                }
+                val exposeImageUrl = photosByPostId?.first()?.imageUrl ?: ""
+                val imageCount = photosByPostId?.size ?: 0
 
-                val exposeImageUrl = photosByPostId.first().imageUrl
-                val imageCount = photosByPostId.size
                 val moreImageCount = resolveImageCount(imageCount)
                 return PostCard(post.id, post.title, exposeImageUrl, moreImageCount)
             }

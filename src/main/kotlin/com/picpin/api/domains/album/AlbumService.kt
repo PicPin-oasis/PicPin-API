@@ -1,5 +1,6 @@
 package com.picpin.api.domains.album
 
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -12,7 +13,9 @@ class AlbumService(
     fun findOneOrThrow(albumId: Long): Album = albumRepository.findOneOrThrow(albumId)
 
     @Transactional(readOnly = true)
-    fun findAllBy(accountId: Long): List<Album> = albumRepository.findAllByOwnerId(accountId)
+    fun findAllByOwnerId(accountId: Long, pageable: Pageable): List<Album> = albumRepository.findAllByOwnerId(accountId, pageable)
 
     fun save(album: Album): Album = albumRepository.save(album)
+
+    fun findAllBy(albumIds: List<Long>): List<Album> = albumRepository.findAllById(albumIds)
 }

@@ -58,7 +58,10 @@ class PostService(
     }
 
     @Transactional(readOnly = true)
-    fun findAllBy(accountId: Long, pageable: Pageable): List<Post> {
-        return postRepository.findAllByWriterId(accountId, pageable)
-    }
+    fun findAllBy(accountId: Long, pageable: Pageable): List<Post> =
+        postRepository.findAllByWriterId(accountId, pageable)
+
+    @Transactional(readOnly = true)
+    fun findAllByAlbumIds(albumIds: List<Long>): List<Post> =
+        postRepository.findAllByAlbumIdIn(albumIds)
 }

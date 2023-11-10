@@ -6,6 +6,8 @@ import com.picpin.api.usecases.CreateMyAlbumsUseCase
 import com.picpin.api.usecases.GetMyAlbumsUseCase
 import com.picpin.api.verticals.web.model.AccountId
 import jakarta.validation.Valid
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,8 +24,8 @@ class AlbumApi(
 ) {
 
     @GetMapping
-    fun getMyAlbums(@AccountId accountId: Long): ResponseEntity<GetMyAlbumsResponse> {
-        val response = getMyAlbumsUseCase.process(accountId)
+    fun getMyAlbums(@PageableDefault pageable: Pageable, @AccountId accountId: Long): ResponseEntity<GetMyAlbumsResponse> {
+        val response = getMyAlbumsUseCase.process(accountId, pageable)
         return ResponseEntity.ok(response)
     }
 

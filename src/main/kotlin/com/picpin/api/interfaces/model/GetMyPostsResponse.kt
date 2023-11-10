@@ -1,6 +1,8 @@
 package com.picpin.api.interfaces.model
 
-class GetMyAllPosts {
+import com.fasterxml.jackson.annotation.JsonProperty
+
+class GetMyAllPostsResponse {
     data class Posts(
         val posts: List<Post>
     )
@@ -8,6 +10,7 @@ class GetMyAllPosts {
     data class Post(
         val id: Long,
         val title: String,
-        val expose_image_url: String
+        @JsonProperty("expose_image_url")
+        val exposeImageUrl: String
     )
 }

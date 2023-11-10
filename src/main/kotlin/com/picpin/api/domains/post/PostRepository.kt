@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PostRepository : JpaRepository<Post, Long> {
     fun findAllByWriterId(writerId: Long, pageable: Pageable): List<Post>
+
+    fun findAllByAlbumIdIn(albumIds: List<Long>): List<Post>
 }
 
 fun PostRepository.findOneOrThrow(postId: Long): Post {

@@ -1,11 +1,13 @@
 package com.picpin.api.interfaces
 
-import com.picpin.api.interfaces.model.GetMyAllPosts
-import com.picpin.api.interfaces.model.GetMyPostsByDate
+import com.picpin.api.interfaces.model.GetMyAllPostsResponse
+import com.picpin.api.interfaces.model.GetMyPostsByAlbumsResponse
+import com.picpin.api.interfaces.model.GetMyPostsByDatesResponse
 import com.picpin.api.interfaces.model.ModifyPostRequest
 import com.picpin.api.interfaces.model.WritePostRequest
 import com.picpin.api.interfaces.model.toCommand
 import com.picpin.api.usecases.GetMyAllPostsUseCase
+import com.picpin.api.usecases.GetMyPostsByAlbumsUseCase
 import com.picpin.api.usecases.GetMyPostsByDateUseCase
 import com.picpin.api.usecases.ModifyPostUseCase
 import com.picpin.api.usecases.WritePostUseCase
@@ -33,7 +35,8 @@ class PostApi(
     private val writePostUseCase: WritePostUseCase,
     private val modifyPostUseCase: ModifyPostUseCase,
     private val getMyAllPostsUseCase: GetMyAllPostsUseCase,
-    private val getMyPostsByDateUseCase: GetMyPostsByDateUseCase
+    private val getMyPostsByDateUseCase: GetMyPostsByDateUseCase,
+    private val getMyPostsByAlbumsUseCase: GetMyPostsByAlbumsUseCase
 ) {
 
     @PostMapping
@@ -62,17 +65,26 @@ class PostApi(
         @AccountId accountId: Long,
         @RequestParam("only_un_mapped") onlyUnMapped: Boolean?,
         @PageableDefault pageable: Pageable
-    ): ResponseEntity<GetMyAllPosts.Posts> {
+    ): ResponseEntity<GetMyAllPostsResponse.Posts> {
         val response = getMyAllPostsUseCase.process(accountId, onlyUnMapped ?: false, pageable)
         return ResponseEntity.ok(response)
     }
 
     @GetMapping("/dates")
-    fun getMyPostsByDate(
+    fun getMyPostsByDates(
         @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
-    ): ResponseEntity<GetMyPostsByDate.PostSections> {
+    ): ResponseEntity<GetMyPostsByDatesResponse.PostSections> {
         val response = getMyPostsByDateUseCase.process(accountId, pageable)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/albums")
+    fun getMyPostsByAlbums(
+        @AccountId accountId: Long,
+        @PageableDefault pageable: Pageable
+    ): ResponseEntity<GetMyPostsByAlbumsResponse.AlbumSections> {
+        val response = getMyPostsByAlbumsUseCase.process(accountId, pageable)
         return ResponseEntity.ok(response)
     }
 }
