@@ -102,7 +102,7 @@ springdoc:
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
-    path: /swagger-ui.html
+    path: /v3/api-docs/swagger-ui.html
     disable-swagger-default-url: true
     display-request-duration: true
     enabled: ${EXPOSE_SWAGGER_UI:false}
