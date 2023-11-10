@@ -4,6 +4,7 @@ import com.picpin.api.interfaces.model.GetMyAllPostsResponse
 import com.picpin.api.interfaces.model.GetMyPostsByAlbumsResponse
 import com.picpin.api.interfaces.model.GetMyPostsByDatesResponse
 import com.picpin.api.interfaces.model.ModifyPostRequest
+import com.picpin.api.interfaces.model.Post
 import com.picpin.api.interfaces.model.WritePostRequest
 import com.picpin.api.interfaces.model.toCommand
 import com.picpin.api.usecases.GetMyAllPostsUseCase
@@ -41,7 +42,7 @@ class PostApi(
 
     @PostMapping
     fun writePost(
-        @Valid @RequestBody request: WritePostRequest,
+        @Valid @RequestBody request: WritePostRequest.Post,
         @AccountId accountId: Long,
         @RequestParam("album_id") albumId: Long?
     ): ResponseEntity<Unit> {
@@ -51,7 +52,7 @@ class PostApi(
 
     @PutMapping("/{postId}")
     fun modifyPost(
-        @Valid @RequestBody request: ModifyPostRequest,
+        @Valid @RequestBody request: ModifyPostRequest.Post,
         @AccountId accountId: Long,
         @PathVariable @Min(1L) postId: Long,
         @RequestParam("album_id") albumId: Long?

@@ -24,13 +24,19 @@ class AlbumApi(
 ) {
 
     @GetMapping
-    fun getMyAlbums(@PageableDefault pageable: Pageable, @AccountId accountId: Long): ResponseEntity<GetMyAlbumsResponse> {
+    fun getMyAlbums(
+        @PageableDefault pageable: Pageable,
+        @AccountId accountId: Long
+    ): ResponseEntity<GetMyAlbumsResponse.Albums> {
         val response = getMyAlbumsUseCase.process(accountId, pageable)
         return ResponseEntity.ok(response)
     }
 
     @PostMapping
-    fun createMyAlbum(@Valid @RequestBody request: CreateMyAlbumRequest, @AccountId accountId: Long): ResponseEntity<Unit> {
+    fun createMyAlbum(
+        @Valid @RequestBody request: CreateMyAlbumRequest,
+        @AccountId accountId: Long
+    ): ResponseEntity<Unit> {
         createMyAlbumUseCase.process(request.toCommand(accountId))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
