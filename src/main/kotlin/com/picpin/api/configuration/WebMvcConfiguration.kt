@@ -47,7 +47,8 @@ class WebMvcConfiguration(
                         "/oauth2/code/kakao",
                         "/health-check",
                         "/error",
-                        "/favicon.ico"
+                        "/favicon.ico",
+                        "/v3/api-docs/**"
                     )
                     .addPathPatterns("/**")
             }

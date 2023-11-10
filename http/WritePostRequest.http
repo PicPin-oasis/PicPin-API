@@ -1,6 +1,6 @@
 POST {{apiAddress}}/posts
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU1MDU4NSwianRpIjoiMSJ9.VWlB4eHRa6i2y7_wksh2XPzfevQBC9XflXOQmNUqDjg
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTg3MDgxOCwianRpIjoiMSJ9.aJEc_ybOJP-hPG2uSHXNFqAHyA9JiQQ0R8u_P5CaROA
 
 {
 	"title": "aaa",
@@ -10,7 +10,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsI
 	"y": "37.570892",
 	"province_code": 11,
 	"taken_photo_address": "서울..",
-	"taken_photo_date": "2023-11-03",
+	"taken_photo_date": "2023-11-05",
 	"photos": [
 		"../image_url_1.jpg",
 		"../image_url_2.jpg"

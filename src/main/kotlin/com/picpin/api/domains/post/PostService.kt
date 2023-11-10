@@ -2,6 +2,7 @@ package com.picpin.api.domains.post
 
 import com.picpin.api.verticals.domain.exception.BusinessErrorCode
 import com.picpin.api.verticals.domain.exception.BusinessException
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -46,8 +47,8 @@ class PostService(
     }
 
     @Transactional(readOnly = true)
-    fun findAllBy(accountId: Long, onlyUnMapped: Boolean): List<Post> {
-        val targetPosts = postRepository.findAllByWriterId(accountId)
+    fun findAllBy(accountId: Long, onlyUnMapped: Boolean, pageable: Pageable): List<Post> {
+        val targetPosts = postRepository.findAllByWriterId(accountId, pageable)
 
         return if (onlyUnMapped) {
             targetPosts.filter { it.albumId == null }
@@ -55,4 +56,12 @@ class PostService(
             targetPosts
         }
     }
+
+    @Transactional(readOnly = true)
+    fun findAllBy(accountId: Long, pageable: Pageable): List<Post> =
+        postRepository.findAllByWriterId(accountId, pageable)
+
+    @Transactional(readOnly = true)
+    fun findAllByAlbumIds(albumIds: List<Long>): List<Post> =
+        postRepository.findAllByAlbumIdIn(albumIds)
 }
