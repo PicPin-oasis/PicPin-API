@@ -1,15 +1,19 @@
 package com.picpin.api.interfaces
 
-import com.picpin.api.interfaces.model.GetMyPostsResponse
+import com.picpin.api.interfaces.model.GetMyAllPosts
+import com.picpin.api.interfaces.model.GetMyPostsByDate
 import com.picpin.api.interfaces.model.ModifyPostRequest
 import com.picpin.api.interfaces.model.WritePostRequest
 import com.picpin.api.interfaces.model.toCommand
-import com.picpin.api.usecases.GetMyPostsUseCase
+import com.picpin.api.usecases.GetMyAllPostsUseCase
+import com.picpin.api.usecases.GetMyPostsByDateUseCase
 import com.picpin.api.usecases.ModifyPostUseCase
 import com.picpin.api.usecases.WritePostUseCase
 import com.picpin.api.verticals.web.model.AccountId
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Min
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -28,7 +32,8 @@ import org.springframework.web.bind.annotation.RestController
 class PostApi(
     private val writePostUseCase: WritePostUseCase,
     private val modifyPostUseCase: ModifyPostUseCase,
-    private val getMyPostsUseCase: GetMyPostsUseCase
+    private val getMyAllPostsUseCase: GetMyAllPostsUseCase,
+    private val getMyPostsByDateUseCase: GetMyPostsByDateUseCase
 ) {
 
     @PostMapping
@@ -53,11 +58,21 @@ class PostApi(
     }
 
     @GetMapping
-    fun getMyPosts(
+    fun getMyAllPosts(
         @AccountId accountId: Long,
-        @RequestParam("only_un_mapped") onlyUnMapped: Boolean?
-    ): ResponseEntity<GetMyPostsResponse> {
-        val response = getMyPostsUseCase.process(accountId, onlyUnMapped ?: false)
+        @RequestParam("only_un_mapped") onlyUnMapped: Boolean?,
+        @PageableDefault pageable: Pageable
+    ): ResponseEntity<GetMyAllPosts.Posts> {
+        val response = getMyAllPostsUseCase.process(accountId, onlyUnMapped ?: false, pageable)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/dates")
+    fun getMyPostsByDate(
+        @AccountId accountId: Long,
+        @PageableDefault pageable: Pageable
+    ): ResponseEntity<GetMyPostsByDate.PostSections> {
+        val response = getMyPostsByDateUseCase.process(accountId, pageable)
         return ResponseEntity.ok(response)
     }
 }

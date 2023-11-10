@@ -1,9 +1,13 @@
 package com.picpin.api.interfaces.model
 
-data class GetMyPostsResponse(val posts: List<GetMyPostResponse>)
+class GetMyAllPosts {
+    data class Posts(
+        val posts: List<Post>
+    )
 
-data class GetMyPostResponse(
-    val id: Long,
-    val title: String,
-    val expose_image_url: String
-)
+    data class Post(
+        val id: Long,
+        val title: String,
+        val expose_image_url: String
+    )
+}
