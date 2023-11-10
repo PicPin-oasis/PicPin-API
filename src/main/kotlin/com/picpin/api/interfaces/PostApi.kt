@@ -4,19 +4,22 @@ import com.picpin.api.interfaces.model.GetMyAllPostsResponse
 import com.picpin.api.interfaces.model.GetMyPostsByAlbumsResponse
 import com.picpin.api.interfaces.model.GetMyPostsByDatesResponse
 import com.picpin.api.interfaces.model.ModifyPostRequest
-import com.picpin.api.interfaces.model.Post
 import com.picpin.api.interfaces.model.WritePostRequest
-import com.picpin.api.interfaces.model.toCommand
 import com.picpin.api.usecases.GetMyAllPostsUseCase
 import com.picpin.api.usecases.GetMyPostsByAlbumsUseCase
 import com.picpin.api.usecases.GetMyPostsByDateUseCase
 import com.picpin.api.usecases.ModifyPostUseCase
 import com.picpin.api.usecases.WritePostUseCase
 import com.picpin.api.verticals.web.model.AccountId
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.enums.ParameterIn
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Min
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
+@Tag(name = "포스트 API")
 @Validated
 @RestController
 @RequestMapping("/posts")
@@ -40,30 +44,100 @@ class PostApi(
     private val getMyPostsByAlbumsUseCase: GetMyPostsByAlbumsUseCase
 ) {
 
+    @Operation(
+        method = "POST",
+        summary = "내 포스트 생성",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            ),
+            Parameter(
+                name = "post_id",
+                description = "포스트 아이디",
+                example = "1",
+                required = true
+            ),
+            Parameter(
+                name = "album_id",
+                description = "포스트를 저장할 앨범의 아이디",
+                example = "1",
+                required = false
+            )
+        ]
+    )
     @PostMapping
     fun writePost(
         @Valid @RequestBody request: WritePostRequest.Post,
-        @AccountId accountId: Long,
+        @Parameter(hidden = true) accountId: Long,
         @RequestParam("album_id") albumId: Long?
     ): ResponseEntity<Unit> {
         writePostUseCase.process(request.toCommand(accountId, albumId))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
-    @PutMapping("/{postId}")
+    @Operation(
+        method = "PUT",
+        summary = "내 포스트 수정",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            ),
+            Parameter(
+                name = "post_id",
+                description = "포스트 아이디",
+                example = "1",
+                required = true
+            ),
+            Parameter(
+                name = "album_id",
+                description = "포스트를 저장할 앨범의 아이디",
+                example = "1",
+                required = false
+            )
+        ]
+    )
+    @PutMapping("/{post_id}")
     fun modifyPost(
         @Valid @RequestBody request: ModifyPostRequest.Post,
-        @AccountId accountId: Long,
-        @PathVariable @Min(1L) postId: Long,
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable("post_id") @Min(1L) postId: Long,
         @RequestParam("album_id") albumId: Long?
     ): ResponseEntity<Unit> {
         modifyPostUseCase.process(request.toCommand(accountId, postId, albumId))
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 
+    @Operation(
+        method = "GET",
+        summary = "내 포스트 전체 OR 앨범 미등록 목록 조회",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            ),
+            Parameter(
+                name = "only_un_mapped",
+                `in` = ParameterIn.QUERY,
+                description = "페이지 번호",
+                example = "0",
+                required = false
+            )
+        ]
+    )
     @GetMapping
     fun getMyAllPosts(
-        @AccountId accountId: Long,
+        @Parameter(hidden = true) @AccountId accountId: Long,
         @RequestParam("only_un_mapped") onlyUnMapped: Boolean?,
         @PageableDefault pageable: Pageable
     ): ResponseEntity<GetMyAllPostsResponse.Posts> {
@@ -71,18 +145,44 @@ class PostApi(
         return ResponseEntity.ok(response)
     }
 
+    @Operation(
+        method = "GET",
+        summary = "날짜별 내 포스트 목록 조회",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            )
+        ]
+    )
     @GetMapping("/dates")
     fun getMyPostsByDates(
-        @AccountId accountId: Long,
+        @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
     ): ResponseEntity<GetMyPostsByDatesResponse.PostSections> {
         val response = getMyPostsByDateUseCase.process(accountId, pageable)
         return ResponseEntity.ok(response)
     }
 
+    @Operation(
+        method = "GET",
+        summary = "앨범별 내 포스트 목록 조회",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            )
+        ]
+    )
     @GetMapping("/albums")
     fun getMyPostsByAlbums(
-        @AccountId accountId: Long,
+        @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
     ): ResponseEntity<GetMyPostsByAlbumsResponse.AlbumSections> {
         val response = getMyPostsByAlbumsUseCase.process(accountId, pageable)
