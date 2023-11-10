@@ -2,12 +2,15 @@ package com.picpin.api.domains.post
 
 import com.picpin.api.verticals.domain.exception.BusinessErrorCode
 import com.picpin.api.verticals.domain.exception.BusinessException
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
 interface PostRepository : JpaRepository<Post, Long> {
-    fun findAllByWriterId(writerId: Long): List<Post>
+    fun findAllByWriterId(writerId: Long, pageable: Pageable): List<Post>
+
+    fun findAllByAlbumIdIn(albumIds: List<Long>): List<Post>
 }
 
 fun PostRepository.findOneOrThrow(postId: Long): Post {

@@ -1,6 +1,6 @@
 POST {{apiAddress}}/albums
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU1MDU4NSwianRpIjoiMSJ9.VWlB4eHRa6i2y7_wksh2XPzfevQBC9XflXOQmNUqDjg
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTg3MDgxOCwianRpIjoiMSJ9.aJEc_ybOJP-hPG2uSHXNFqAHyA9JiQQ0R8u_P5CaROA
 
 {
   "title": "tempalbum2",
