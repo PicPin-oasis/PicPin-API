@@ -19,7 +19,7 @@ class MetaApi {
 
     @Operation(
         method = "GET",
-        summary = "사진 업로드 경로",
+        summary = "메타데이터 조회 (마커 색상, 마커 색상 필터, 지역 필터)",
         parameters = [
             Parameter(
                 name = HttpHeaders.AUTHORIZATION,

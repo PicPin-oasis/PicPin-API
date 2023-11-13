@@ -30,11 +30,6 @@ class PhotoApi(
                 description = "JWT Token",
                 example = "Bearer eyjhbGciOiJIUz...",
                 required = true
-            ),
-            Parameter(
-                name = "image_name",
-                description = "업로드할 이미지 이름",
-                required = true
             )
         ]
     )

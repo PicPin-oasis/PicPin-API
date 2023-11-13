@@ -31,7 +31,7 @@ class AlbumApi(
 
     @Operation(
         method = "GET",
-        summary = "사진 업로드 경로",
+        summary = "내 앨범 목록 조회",
         parameters = [
             Parameter(
                 name = HttpHeaders.AUTHORIZATION,
