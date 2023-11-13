@@ -8,7 +8,7 @@ class JsonAccessToken(authorizationHeaderValue: String?, requestUrl: String) {
 
     init {
         if (authorizationHeaderValue == null) {
-            throw BusinessException(
+            throw BusinessException.of(
                 BusinessErrorCode.INVALID_VERIFIED_JWT_TOKEN,
                 "Missing Authorization Header."
             )
@@ -21,7 +21,7 @@ class JsonAccessToken(authorizationHeaderValue: String?, requestUrl: String) {
         val splitAuthorizationHeaderValue = authorizationHeaderValue.split(" ")
         if (splitAuthorizationHeaderValue.isEmpty() || splitAuthorizationHeaderValue.size != 2) {
             BusinessException.of(
-                BusinessErrorCode.INVALID_VERIFIED_JWT_TOKEN,
+                BusinessErrorCode.JWT_TOKEN_NOT_FOUND,
                 " requestUrl = $requestUrl, accessToken = $authorizationHeaderValue"
             )
         }

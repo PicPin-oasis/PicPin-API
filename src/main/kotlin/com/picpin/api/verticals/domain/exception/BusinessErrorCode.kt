@@ -29,6 +29,7 @@ enum class BusinessErrorCode(
     // Kakao
     GET_ACCESS_TOKEN_FAILED(900, "Failed to retrieve access token.", HttpStatus.UNAUTHORIZED),
     GET_KAKAO_USER_INFO_FAILED(901, "Failed to retrieve User Info.", HttpStatus.UNAUTHORIZED),
+    IS_NOT_ALLOWED_REDIRECT_URL(902, "", HttpStatus.BAD_REQUEST),
 
     // JWT
     INVALID_VERIFIED_JWT_TOKEN(
@@ -36,7 +37,15 @@ enum class BusinessErrorCode(
         "The Token's Signature resulted invalid when verified using the Algorithm",
         HttpStatus.UNAUTHORIZED
     ),
-    EXPIRED_JWT_TOKEN(1001, "This Token is Expired.", HttpStatus.UNAUTHORIZED),
+    EXPIRED_JWT_TOKEN(1001, "if the token has expired.", HttpStatus.UNAUTHORIZED),
     IS_NOT_BEARER_TOKEN(1002, "This Token is Not Bearer Type.", HttpStatus.BAD_REQUEST),
-    JWT_CREATE_FAILED(1003, "", HttpStatus.INTERNAL_SERVER_ERROR)
+    JWT_CREATE_FAILED(1003, "", HttpStatus.INTERNAL_SERVER_ERROR),
+    JWT_TOKEN_NOT_FOUND(
+        1004,
+        "The Token's Signature resulted invalid when verified using the Algorithm",
+        HttpStatus.UNAUTHORIZED
+    ),
+    MISSING_CLAIN(1005, "if a claim to be verified is missing.", HttpStatus.UNAUTHORIZED),
+    INCORRECT_CLAIM(1006, "if a claim contained a different value than the expected one.", HttpStatus.UNAUTHORIZED),
+    SIGNATURE_VERIFICATION(1007, "if the signature is invalid.", HttpStatus.UNAUTHORIZED)
 }
