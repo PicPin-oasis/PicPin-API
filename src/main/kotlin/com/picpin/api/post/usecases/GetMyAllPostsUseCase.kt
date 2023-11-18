@@ -16,25 +16,21 @@ class GetMyAllPostsUseCase(
 
     fun process(accountId: Long, onlyUnMapped: Boolean, pageable: Pageable): GetMyAllPostsResponse.Posts {
         val targetPosts = postService.findAllBy(accountId, onlyUnMapped, pageable)
-        val postIds = targetPosts.map { it.id }
+        val targetPhotos = photoService.findAllBy(targetPosts.map { it.id })
 
-        val targetPhotos = photoService.findAllBy(postIds)
-        val groupingPhotosByPostId = targetPhotos.groupBy { it.postId }
-
-        val posts = createPosts(targetPosts, groupingPhotosByPostId)
-        return GetMyAllPostsResponse.Posts(posts)
+        return GetMyAllPostsAssembler.assemble(targetPosts, targetPhotos)
     }
+}
 
-    private fun createPosts(
-        targetPosts: List<Post>,
-        groupingPhotosByPostId: Map<Long, List<Photo>>
-    ) = targetPosts.map {
-        val resolvedExposeImageUrl = resolveExposeImageUrl(groupingPhotosByPostId, it)
-        GetMyAllPostsResponse.Post(it.id, it.title, resolvedExposeImageUrl)
+object GetMyAllPostsAssembler {
+
+    fun assemble(posts: List<Post>, photos: List<Photo>): GetMyAllPostsResponse.Posts {
+        val groupingPhotosByPostId = photos.groupBy { it.postId }
+        val responses = posts.map { post ->
+            val resolvedExposeImageUrl = groupingPhotosByPostId[post.id]?.first()?.imageUrl ?: ""
+            GetMyAllPostsResponse.Post(post.id, post.title, resolvedExposeImageUrl)
+        }
+
+        return GetMyAllPostsResponse.Posts(responses)
     }
-
-    private fun resolveExposeImageUrl(
-        photoByPostIdMap: Map<Long, List<Photo>>,
-        it: Post
-    ) = photoByPostIdMap[it.id]?.first()?.imageUrl ?: ""
 }
