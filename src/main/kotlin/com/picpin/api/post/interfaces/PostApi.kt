@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RestController
 @Tag(name = "포스트 API")
 @Validated
 @RestController
-@RequestMapping("/posts")
 class PostApi(
     private val writePostUseCase: WritePostUseCase,
     private val modifyPostUseCase: ModifyPostUseCase,
@@ -69,7 +68,7 @@ class PostApi(
             )
         ]
     )
-    @PostMapping
+    @PostMapping("/posts")
     fun writePost(
         @Valid @RequestBody request: WritePostRequest.Post,
         @Parameter(hidden = true) accountId: Long,
@@ -104,7 +103,7 @@ class PostApi(
             )
         ]
     )
-    @PutMapping("/{post_id}")
+    @PutMapping("/posts/{post_id}")
     fun modifyPost(
         @Valid @RequestBody request: ModifyPostRequest.Post,
         @Parameter(hidden = true) @AccountId accountId: Long,
@@ -135,7 +134,7 @@ class PostApi(
             )
         ]
     )
-    @GetMapping
+    @GetMapping("/posts")
     fun getMyAllPosts(
         @Parameter(hidden = true) @AccountId accountId: Long,
         @RequestParam("only_un_mapped") onlyUnMapped: Boolean?,
@@ -158,7 +157,7 @@ class PostApi(
             )
         ]
     )
-    @GetMapping("/dates")
+    @GetMapping("/post-sections")
     fun getMyPostsByDates(
         @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
@@ -180,7 +179,7 @@ class PostApi(
             )
         ]
     )
-    @GetMapping("/albums")
+    @GetMapping("/album-sections")
     fun getMyPostsByAlbums(
         @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
