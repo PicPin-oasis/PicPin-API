@@ -19,42 +19,33 @@ class GetMyPostsByAlbumsUseCase(
 
     fun process(accountId: Long, pageable: Pageable): GetMyPostsByAlbumsResponse.AlbumSections {
         val targetAlbums = albumService.findAllByOwnerId(accountId, pageable)
-        val albumIds = targetAlbums.map { it.id }
+        val targetPost = postService.findAllByAlbumIds(targetAlbums.map { it.id })
+        val targetPhotos = photoService.findAllBy(targetPost.map { it.id })
 
-        val targetPost = postService.findAllByAlbumIds(albumIds)
-        val postIds = targetPost.map { it.id }
-
-        val targetPhotos = photoService.findAllBy(postIds)
-        val groupingPhotoByPostId = targetPhotos.groupBy { it.postId }
-        val groupingPostByAlbumId = targetPost.groupBy { it.albumId!! }
-        val groupingAlbumById = targetAlbums.associateBy { it.id }
-
-        val albumSections = createAlbumSections(
-            groupingPostByAlbumId = groupingPostByAlbumId,
-            groupingAlbumById = groupingAlbumById,
-            groupingPhotoByPostId = groupingPhotoByPostId
-        )
-        return GetMyPostsByAlbumsResponse.AlbumSections(albumSections)
+        return GetMyPostsByAlbumsAssembler.assemble(targetAlbums, targetPost, targetPhotos)
     }
+}
 
-    private fun createAlbumSections(
-        groupingPostByAlbumId: Map<Long, List<Post>>,
-        groupingAlbumById: Map<Long, Album>,
-        groupingPhotoByPostId: Map<Long, List<Photo>>
-    ): List<GetMyPostsByAlbumsResponse.AlbumSection> =
-        groupingPostByAlbumId.entries.map { (albumId, posts) ->
-            val album = groupingAlbumById[albumId]!!
-            createAlbumSection(album, posts, groupingPhotoByPostId)
-        }.filter { it.postCards.isNotEmpty() }
+object GetMyPostsByAlbumsAssembler {
 
-    private fun createAlbumSection(
-        album: Album,
+    fun assemble(
+        albums: List<Album>,
         posts: List<Post>,
-        groupingPhotoByPostId: Map<Long, List<Photo>>
-    ): GetMyPostsByAlbumsResponse.AlbumSection {
-        val sortedPostCards = posts.map {
-            GetMyPostsByAlbumsResponse.PostCard.create(it, groupingPhotoByPostId)
-        }.sortedBy { it.title }
-        return GetMyPostsByAlbumsResponse.AlbumSection(album.title, sortedPostCards)
+        photos: List<Photo>
+    ): GetMyPostsByAlbumsResponse.AlbumSections {
+        val groupingAlbumById = albums.associateBy { it.id }
+        val groupingPostByAlbumId = posts.groupBy { it.albumId!! }
+        val groupingPhotoByPostId = photos.groupBy { it.postId }
+        val responses = groupingPostByAlbumId.entries.map { (albumId, posts) ->
+            val sortedPostCards = posts
+                .map { GetMyPostsByAlbumsResponse.PostCard.create(it, groupingPhotoByPostId) }
+                .sortedBy { it.title }
+
+            val album = groupingAlbumById[albumId]!!
+            GetMyPostsByAlbumsResponse.AlbumSection(album.title, sortedPostCards)
+        }
+
+        val sortedResponses = responses.sortedBy { it.title }
+        return GetMyPostsByAlbumsResponse.AlbumSections(sortedResponses)
     }
 }
