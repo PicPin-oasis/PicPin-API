@@ -2,12 +2,12 @@ package com.picpin.api.oauth.usecases
 
 import com.picpin.api.account.domains.AccountService
 import com.picpin.api.account.interfaces.SocialLoginResponse
-import com.picpin.api.oauth.domains.AccessTokenGenerator
 import com.picpin.api.oauth.domains.KakaoAccessTokenReader
 import com.picpin.api.oauth.domains.KakaoProfileReader
-import com.picpin.api.oauth.domains.KakaoRefreshTokenService
-import com.picpin.api.oauth.domains.model.JsonWebToken
-import com.picpin.api.oauth.domains.model.toAccount
+import com.picpin.api.oauth.domains.access.AccessTokenGenerator
+import com.picpin.api.oauth.domains.models.JsonWebToken
+import com.picpin.api.oauth.domains.models.toAccount
+import com.picpin.api.oauth.domains.refresh.KakaoRefreshTokenService
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service

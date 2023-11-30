@@ -5,7 +5,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsI
 {
   "title": "tempalbum2",
   "cover_image_url": "./cover_image_url.jpg",
-  "post_ids": [
+  "photo_ids": [
     1
   ]
 }

@@ -12,23 +12,21 @@ enum class BusinessErrorCode(
     ACCOUNT_NOT_FOUND(100, "Not found account id.", HttpStatus.NOT_FOUND),
     THIS_ACCOUNT_IS_NOT_OWNER(101, "is Not Owner.", HttpStatus.NOT_FOUND),
 
-    // Post
-    POST_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),
-    CONTAINS_UNSAVED_POST_IDS(201, "It contains an unsaved post id", HttpStatus.NOT_FOUND),
-    ALREADY_STORED_IN_ALBUM_POST(201, "You have a post is already saved to an album.", HttpStatus.NOT_FOUND),
-
-    // Post coordinate
-    POST_COORDINATE_NOT_FOUND(200, "Not found post id.", HttpStatus.NOT_FOUND),
+    // Photo
+    PHOTO_NOT_FOUND(200, "Not found photo id.", HttpStatus.NOT_FOUND),
+    CONTAINS_UNSAVED_PHOTO_IDS(201, "It contains an unsaved photo id", HttpStatus.NOT_FOUND),
+    ALREADY_STORED_IN_ALBUM_PHOTO(201, "You have a photo is already saved to an album.", HttpStatus.NOT_FOUND),
 
     // Album
     ALBUM_NOT_FOUND(400, "Not found album id.", HttpStatus.NOT_FOUND),
 
-    // Marker
-    MARKER_COLOR_NOT_FOUND(800, "Not found marker color id.", HttpStatus.NOT_FOUND),
-
     // Kakao
     GET_ACCESS_TOKEN_FAILED(900, "Failed to retrieve access token.", HttpStatus.UNAUTHORIZED),
     GET_KAKAO_USER_INFO_FAILED(901, "Failed to retrieve User Info.", HttpStatus.UNAUTHORIZED),
+    EXCEED_KAKAO_LOCAL_API_LIMIT(902, "Exceed API Limits", HttpStatus.BAD_REQUEST),
+    GET_COORDINATE_ADDRESS_FAILED(903, "", HttpStatus.INTERNAL_SERVER_ERROR),
+
+    // TODO
     IS_NOT_ALLOWED_REDIRECT_URL(902, "", HttpStatus.BAD_REQUEST),
 
     // JWT
@@ -47,5 +45,7 @@ enum class BusinessErrorCode(
     ),
     MISSING_CLAIN(1005, "if a claim to be verified is missing.", HttpStatus.UNAUTHORIZED),
     INCORRECT_CLAIM(1006, "if a claim contained a different value than the expected one.", HttpStatus.UNAUTHORIZED),
+
+    // TODO
     SIGNATURE_VERIFICATION(1007, "if the signature is invalid.", HttpStatus.UNAUTHORIZED)
 }

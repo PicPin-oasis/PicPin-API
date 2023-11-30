@@ -16,9 +16,9 @@ data class CreateMyAlbumRequest(
     @JsonProperty("cover_image_url")
     val coverImageUrl: String,
 
-    @Schema(description = "엘범 최초 생성시 포스트 입력 가능", defaultValue = "서울..")
-    @JsonProperty("post_ids")
-    val postIds: List<Long>
+    @Schema(description = "엘범 최초 생성시 등록할 사진 선택", defaultValue = "[1, 2, 3]")
+    @JsonProperty("photo_ids")
+    val photoIds: List<Long>
 ) {
 
     fun toCommand(accountId: Long): CreateMyAlbumCommand =
@@ -26,6 +26,6 @@ data class CreateMyAlbumRequest(
             accountId = accountId,
             title = title,
             coverImageUrl = coverImageUrl,
-            postIds = postIds
+            postIds = photoIds
         )
 }

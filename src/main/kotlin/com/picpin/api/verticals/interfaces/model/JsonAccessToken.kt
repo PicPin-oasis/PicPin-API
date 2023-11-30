@@ -3,7 +3,7 @@ package com.picpin.api.verticals.interfaces.model
 import com.picpin.api.verticals.domains.exception.BusinessErrorCode
 import com.picpin.api.verticals.domains.exception.BusinessException
 
-class JsonAccessToken(authorizationHeaderValue: String?, requestUrl: String) {
+class JsonAccessToken(authorizationHeaderValue: String?) {
     var payload: String
 
     init {
@@ -22,7 +22,7 @@ class JsonAccessToken(authorizationHeaderValue: String?, requestUrl: String) {
         if (splitAuthorizationHeaderValue.isEmpty() || splitAuthorizationHeaderValue.size != 2) {
             BusinessException.of(
                 BusinessErrorCode.JWT_TOKEN_NOT_FOUND,
-                " requestUrl = $requestUrl, accessToken = $authorizationHeaderValue"
+                "accessToken = $authorizationHeaderValue"
             )
         }
 

@@ -10,4 +10,4 @@ services:
       MYSQL_USER: picpin_user
       MYSQL_PASSWORD: picpin_user
     ports:
-      - "3307:3306"
+      - "3306:3306"

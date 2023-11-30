@@ -1,7 +1,7 @@
 package com.picpin.api.account.interfaces
 
 import com.picpin.api.account.usecases.GetMyProfileUseCase
-import com.picpin.api.oauth.interfaces.MyProfileResponse
+import com.picpin.api.oauth.interfaces.models.MyProfileResponse
 import com.picpin.api.verticals.interfaces.model.AccountId
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -13,12 +13,21 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "사용자 API")
 @RestController
 @RequestMapping("/accounts")
 class AccountApi(
     private val getMyProfileUseCase: GetMyProfileUseCase
-) {
+) : AccountApiDocs {
+
+    @GetMapping("/my-profile")
+    override fun getMyProfile(@Parameter(hidden = true) @AccountId accountId: Long): ResponseEntity<MyProfileResponse> {
+        val response = getMyProfileUseCase.process(accountId)
+        return ResponseEntity.ok(response)
+    }
+}
+
+@Tag(name = "사용자 API")
+interface AccountApiDocs {
 
     @Operation(
         method = "GET",
@@ -34,10 +43,5 @@ class AccountApi(
         ]
     )
     @GetMapping("/my-profile")
-    fun getMyProfile(
-        @Parameter(hidden = true) @AccountId accountId: Long
-    ): ResponseEntity<MyProfileResponse> {
-        val response = getMyProfileUseCase.process(accountId)
-        return ResponseEntity.ok(response)
-    }
+    fun getMyProfile(@Parameter(hidden = true) @AccountId accountId: Long): ResponseEntity<MyProfileResponse>
 }

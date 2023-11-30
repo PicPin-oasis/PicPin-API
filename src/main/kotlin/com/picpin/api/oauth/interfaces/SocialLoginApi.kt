@@ -11,11 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "소셜 로그인 API")
 @RestController
 class SocialLoginApi(
     private val kakaoSocialLoginUseCase: KakaoSocialLoginUseCase
-) {
+) : SocialLoginApiDocs {
+
+    @GetMapping("/oauth2/code/kakao")
+    override fun socialLogin(@RequestParam("code") authCode: String): ResponseEntity<SocialLoginResponse> {
+        val response = kakaoSocialLoginUseCase.process(authCode)
+        return ResponseEntity.ok(response)
+    }
+}
+
+@Tag(name = "소셜 로그인 API")
+interface SocialLoginApiDocs {
 
     @Operation(
         method = "GET",
@@ -30,8 +39,5 @@ class SocialLoginApi(
         ]
     )
     @GetMapping("/oauth2/code/kakao")
-    fun socialLogin(@RequestParam("code") authCode: String): ResponseEntity<SocialLoginResponse> {
-        val response = kakaoSocialLoginUseCase.process(authCode)
-        return ResponseEntity.ok(response)
-    }
+    fun socialLogin(@RequestParam("code") authCode: String): ResponseEntity<SocialLoginResponse>
 }

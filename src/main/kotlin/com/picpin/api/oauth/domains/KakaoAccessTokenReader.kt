@@ -1,6 +1,6 @@
 package com.picpin.api.oauth.domains
 
-import com.picpin.api.oauth.domains.model.KakaoAccessToken
+import com.picpin.api.oauth.domains.models.KakaoAccessToken
 import com.picpin.api.verticals.domains.exception.BusinessErrorCode
 import com.picpin.api.verticals.domains.exception.BusinessException
 import io.github.oshai.kotlinlogging.KLogger
@@ -55,7 +55,7 @@ class KakaoAccessTokenReader(
     private fun getHttpHeaders(): HttpHeaders {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
-        headers.add("Accept", "application/json")
+        headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
         return headers
     }
 

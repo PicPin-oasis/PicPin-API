@@ -1,0 +1,15 @@
+POST {{apiAddress}}/photos
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0MjQ1OCwianRpIjoiMSJ9.hjvyYRbMoP5_tIBzIGET3GmbYj_YiW2Rp_JUm5NOF68
+
+{
+  "place_name": "some place",
+  "memo": "some place memo",
+  "taken_photo_address": "서울 동작구 현충로 174 (국립서울현충원직원숙소)",
+  "taken_photo_date": "2023-11-03",
+  "photo_urls": [
+    "./../image.jpg",
+    "./../image.jpg",
+    "./../image.jpg"
+  ]
+}

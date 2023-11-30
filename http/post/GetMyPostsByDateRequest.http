@@ -1,3 +1,0 @@
-GET {{apiAddress}}/posts/dates?page=0&size=10
-Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTg3MDgxOCwianRpIjoiMSJ9.aJEc_ybOJP-hPG2uSHXNFqAHyA9JiQQ0R8u_P5CaROA

@@ -1,0 +1,3 @@
+DELETE {{apiAddress}}/photos/1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbCIsInR5cGUiOiJLQUtBTyIsImV4cCI6MTY5OTU0MjQ1OCwianRpIjoiMSJ9.hjvyYRbMoP5_tIBzIGET3GmbYj_YiW2Rp_JUm5NOF68

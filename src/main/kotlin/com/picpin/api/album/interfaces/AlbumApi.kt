@@ -19,13 +19,34 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "앨범 API")
 @RestController
 @RequestMapping("/albums")
 class AlbumApi(
     private val getMyAlbumsUseCase: GetMyAlbumsUseCase,
     private val createMyAlbumUseCase: CreateMyAlbumsUseCase
-) {
+) : AlbumApiDocs {
+
+    @GetMapping
+    override fun getMyAlbums(
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PageableDefault pageable: Pageable
+    ): ResponseEntity<GetMyAlbumsResponse.Albums> {
+        val response = getMyAlbumsUseCase.process(accountId, pageable)
+        return ResponseEntity.ok(response)
+    }
+
+    @PostMapping
+    override fun createMyAlbum(
+        @Valid @RequestBody request: CreateMyAlbumRequest,
+        @Parameter(hidden = true) @AccountId accountId: Long
+    ): ResponseEntity<Unit> {
+        createMyAlbumUseCase.process(request.toCommand(accountId))
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+}
+
+@Tag(name = "앨범 API")
+interface AlbumApiDocs {
 
     @Operation(
         method = "GET",
@@ -44,17 +65,24 @@ class AlbumApi(
     fun getMyAlbums(
         @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
-    ): ResponseEntity<GetMyAlbumsResponse.Albums> {
-        val response = getMyAlbumsUseCase.process(accountId, pageable)
-        return ResponseEntity.ok(response)
-    }
+    ): ResponseEntity<GetMyAlbumsResponse.Albums>
 
+    @Operation(
+        method = "POST",
+        summary = "내 앨범 생성",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            )
+        ]
+    )
     @PostMapping
     fun createMyAlbum(
         @Valid @RequestBody request: CreateMyAlbumRequest,
         @Parameter(hidden = true) @AccountId accountId: Long
-    ): ResponseEntity<Unit> {
-        createMyAlbumUseCase.process(request.toCommand(accountId))
-        return ResponseEntity.status(HttpStatus.CREATED).build()
-    }
+    ): ResponseEntity<Unit>
 }
