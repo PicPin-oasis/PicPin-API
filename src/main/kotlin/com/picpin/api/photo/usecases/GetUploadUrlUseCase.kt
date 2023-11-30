@@ -1,6 +1,6 @@
 package com.picpin.api.photo.usecases
 
-import com.picpin.api.photo.domains.S3Service
+import com.picpin.api.photo.domains.upload.S3Service
 import com.picpin.api.photo.interfaces.UploadUrlResponse
 import org.springframework.stereotype.Service
 
@@ -11,10 +11,6 @@ class GetUploadUrlUseCase(
 
     fun process(imageName: String): UploadUrlResponse {
         val preSignedUrl = s3Service.generatePreSignedUrl(imageName)
-        return UploadUrlResponse(
-            preSignedUrl.cloudFrontHost,
-            preSignedUrl.key,
-            preSignedUrl.uploadUrl
-        )
+        return UploadUrlResponse(preSignedUrl.cloudFrontHost, preSignedUrl.key, preSignedUrl.uploadUrl)
     }
 }

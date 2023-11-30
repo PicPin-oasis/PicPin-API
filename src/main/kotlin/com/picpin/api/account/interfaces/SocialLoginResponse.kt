@@ -1,7 +1,7 @@
 package com.picpin.api.account.interfaces
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.picpin.api.oauth.domains.model.JsonWebToken
+import com.picpin.api.oauth.domains.models.JsonWebToken
 
 data class SocialLoginResponse(
     @JsonProperty("access_token")

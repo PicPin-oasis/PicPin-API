@@ -2,6 +2,7 @@ server:
   error:
     whitelabel:
       enabled: false
+    path: /error
 
 spring:
   config:
@@ -9,7 +10,7 @@ spring:
       on-profile: default
 
   datasource:
-    url: jdbc:mysql://localhost:3307/picpin?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/picpin?characterEncoding=UTF-8&serverTimezone=UTC
     username: picpin_user
     password: picpin_user
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -30,6 +31,10 @@ oauth2:
   client_id: ${KAKAO_CLIENT_ID:7ac056ec12a1aba0fc28bdbf20fbc0ce}
   client_secret: ${KAKAO_CLIENT_SECRET:j1nmy1aSMonYJE0FzII21cc4twPxobG1} # ${KAKAO_CLIENT_SECRET:#{null}}
 
+coordinate:
+  rest_api_key: ${KAKAO_REST_API_KEY:c5104793a730e1ea73b6d9d677641906}
+  local_api_url: "https://dapi.kakao.com/v2/local/search/address.json"
+
 jwt:
   issuer: ${JWT_ISSUER:local}
   secret: ${JWT_SECRET:AAAAAAAA}
@@ -43,7 +48,7 @@ aws:
   secret_key: ${AWS_SECRET_KEY:A}
 
 springdoc:
-  packages-to-scan: com.picpin.api.interfaces
+  packages-to-scan: com.picpin.api
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
@@ -57,6 +62,7 @@ server:
   error:
     whitelabel:
       enabled: false
+    path: /error
 
 spring:
   config:
@@ -98,7 +104,7 @@ aws:
   secret_key: ${AWS_SECRET_KEY:A}
 
 springdoc:
-  packages-to-scan: com.picpin.api.interfaces
+  packages-to-scan: com.picpin.api
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
