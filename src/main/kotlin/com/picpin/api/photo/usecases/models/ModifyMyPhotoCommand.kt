@@ -9,7 +9,7 @@ data class ModifyMyPhotoCommand(
     val photoId: Long,
     val albumId: Long?,
     val placeName: String,
-    val memo: String,
+    val memo: String?,
     val takenPhotoAddress: String,
     val takenPhotoDate: LocalDate
 ) {
