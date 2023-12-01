@@ -21,7 +21,7 @@ class AccountApi(
 
     @GetMapping("/my-profile")
     override fun getMyProfile(@Parameter(hidden = true) @AccountId accountId: Long): ResponseEntity<MyProfileResponse> {
-        val response = getMyProfileUseCase.process(accountId)
+        val response = getMyProfileUseCase(accountId)
         return ResponseEntity.ok(response)
     }
 }

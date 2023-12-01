@@ -46,7 +46,7 @@ class PhotoApi(
         @Valid @RequestBody request: GetUploadUrlRequest,
         @AccountId accountId: Long
     ): ResponseEntity<UploadUrlResponse> {
-        val response = getUploadUrlUseCase.process(request.imageName)
+        val response = getUploadUrlUseCase(request.imageName)
         return ResponseEntity.ok(response)
     }
 
@@ -55,19 +55,19 @@ class PhotoApi(
         @RequestParam("search_type", required = false) rawSearchType: String?,
         @AccountId accountId: Long
     ): ResponseEntity<GetMyPhotosResponse.PhotoCards> {
-        val response = getMyPhotosUseCase.process(rawSearchType, accountId)
+        val response = getMyPhotosUseCase(rawSearchType, accountId)
         return ResponseEntity.ok(response)
     }
 
     @GetMapping("/photo-sections")
     override fun getMyPhotoSections(@AccountId accountId: Long): ResponseEntity<GetMyPhotoSectionsResponse.PhotoSections> {
-        val response = getMyPhotoSectionsUseCase.process(accountId)
+        val response = getMyPhotoSectionsUseCase(accountId)
         return ResponseEntity.ok(response)
     }
 
     @GetMapping("/photos/{photoId}")
     override fun getMyPhotoDetail(@PathVariable photoId: Long, @AccountId accountId: Long): ResponseEntity<GetMyPhotoDetailResponse.PhotoDetail> {
-        val response = getMyPhotoDetailUseCase.process(photoId, accountId)
+        val response = getMyPhotoDetailUseCase(photoId, accountId)
         return ResponseEntity.ok(response)
     }
 
@@ -76,7 +76,7 @@ class PhotoApi(
         @Valid @RequestBody request: SaveMyPhotosRequest.Photos,
         @AccountId accountId: Long
     ): ResponseEntity<Unit> {
-        saveMyPhotoUseCase.process(request.toCommand(accountId))
+        saveMyPhotoUseCase(request.toCommand(accountId))
         return ResponseEntity.ok().build()
     }
 
@@ -86,7 +86,7 @@ class PhotoApi(
         @PathVariable photoId: Long,
         @AccountId accountId: Long
     ): ResponseEntity<Unit> {
-        modifyMyPhotoUseCase.process(request.toCommand(photoId, accountId))
+        modifyMyPhotoUseCase(request.toCommand(photoId, accountId))
         return ResponseEntity.ok().build()
     }
 
@@ -95,7 +95,7 @@ class PhotoApi(
         @PathVariable photoId: Long,
         @AccountId accountId: Long
     ): ResponseEntity<Unit> {
-        removeMyPhotoUseCase.process(photoId, accountId)
+        removeMyPhotoUseCase(photoId, accountId)
         return ResponseEntity.ok().build()
     }
 }

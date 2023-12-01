@@ -2,15 +2,15 @@ package com.picpin.api.album.usecases
 
 import com.picpin.api.album.domains.AlbumService
 import com.picpin.api.verticals.domains.database.TransactionHandler
-import org.springframework.stereotype.Service
+import com.picpin.api.verticals.stereotype.UseCase
 
-@Service
+@UseCase
 class CreateMyAlbumsUseCase(
     private val albumService: AlbumService,
     private val transactionHandler: TransactionHandler
 ) {
 
-    fun process(command: CreateMyAlbumCommand) {
+    operator fun invoke(command: CreateMyAlbumCommand) {
         transactionHandler.runInTransaction {
             val album = albumService.save(command.toAlbum())
             command.postIds

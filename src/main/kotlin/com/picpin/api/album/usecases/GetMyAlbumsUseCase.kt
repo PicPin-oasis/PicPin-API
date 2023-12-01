@@ -3,15 +3,15 @@ package com.picpin.api.album.usecases
 import com.picpin.api.album.domains.Album
 import com.picpin.api.album.domains.AlbumService
 import com.picpin.api.album.interfaces.GetMyAlbumsResponse
+import com.picpin.api.verticals.stereotype.UseCase
 import org.springframework.data.domain.Pageable
-import org.springframework.stereotype.Service
 
-@Service
+@UseCase
 class GetMyAlbumsUseCase(
     private val albumService: AlbumService
 ) {
 
-    fun process(accountId: Long, pageable: Pageable): GetMyAlbumsResponse.Albums {
+    operator fun invoke(accountId: Long, pageable: Pageable): GetMyAlbumsResponse.Albums {
         val targetAlbums = albumService.findAllByOwnerId(accountId, pageable)
         val albums = createAlbums(targetAlbums)
         return GetMyAlbumsResponse.Albums(albums)

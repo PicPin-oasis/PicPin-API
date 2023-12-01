@@ -4,16 +4,16 @@ import com.picpin.api.album.domains.AlbumService
 import com.picpin.api.photo.domains.coordinate.KakaoCoordinateProvider
 import com.picpin.api.photo.domains.root.PhotoService
 import com.picpin.api.photo.usecases.models.SaveMyPhotosCommand
-import org.springframework.stereotype.Service
+import com.picpin.api.verticals.stereotype.UseCase
 
-@Service
+@UseCase
 class SaveMyPhotosUseCase(
     private val albumService: AlbumService,
     private val photoService: PhotoService,
     private val kakaoCoordinateProvider: KakaoCoordinateProvider
 ) {
 
-    fun process(command: SaveMyPhotosCommand) {
+    operator fun invoke(command: SaveMyPhotosCommand) {
         if (command.ifAddToOnAlbum()) {
             albumService.findOneOrThrow(command.albumId!!)
         }

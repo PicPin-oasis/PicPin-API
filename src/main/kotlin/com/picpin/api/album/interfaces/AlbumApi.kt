@@ -31,7 +31,7 @@ class AlbumApi(
         @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
     ): ResponseEntity<GetMyAlbumsResponse.Albums> {
-        val response = getMyAlbumsUseCase.process(accountId, pageable)
+        val response = getMyAlbumsUseCase(accountId, pageable)
         return ResponseEntity.ok(response)
     }
 
@@ -40,7 +40,7 @@ class AlbumApi(
         @Valid @RequestBody request: CreateMyAlbumRequest,
         @Parameter(hidden = true) @AccountId accountId: Long
     ): ResponseEntity<Unit> {
-        createMyAlbumUseCase.process(request.toCommand(accountId))
+        createMyAlbumUseCase(request.toCommand(accountId))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 }

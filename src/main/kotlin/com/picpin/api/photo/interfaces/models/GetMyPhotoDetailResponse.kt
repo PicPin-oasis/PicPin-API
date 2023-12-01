@@ -11,7 +11,7 @@ class GetMyPhotoDetailResponse {
         @JsonProperty("place_name")
         val placeName: String,
         @JsonProperty("memo")
-        val memo: String,
+        val memo: String?,
         @JsonProperty("expose_image_url")
         val exposeImageUrl: String,
         @JsonProperty("taken_photo_date")
