@@ -9,16 +9,16 @@ enum class BusinessErrorCode(
 ) {
 
     // Account
-    ACCOUNT_NOT_FOUND(100, "Not found account id.", HttpStatus.NOT_FOUND),
-    THIS_ACCOUNT_IS_NOT_OWNER(101, "is Not Owner.", HttpStatus.NOT_FOUND),
+    ACCOUNT_NOT_FOUND(100, "Not found account id.", HttpStatus.BAD_REQUEST),
+    THIS_ACCOUNT_IS_NOT_OWNER(101, "is Not Owner.", HttpStatus.BAD_REQUEST),
 
     // Photo
-    PHOTO_NOT_FOUND(200, "Not found photo id.", HttpStatus.NOT_FOUND),
-    CONTAINS_UNSAVED_PHOTO_IDS(201, "It contains an unsaved photo id", HttpStatus.NOT_FOUND),
-    ALREADY_STORED_IN_ALBUM_PHOTO(201, "You have a photo is already saved to an album.", HttpStatus.NOT_FOUND),
+    PHOTO_NOT_FOUND(200, "Not found photo id.", HttpStatus.BAD_REQUEST),
+    CONTAINS_UNSAVED_PHOTO_IDS(201, "It contains an unsaved photo id", HttpStatus.BAD_REQUEST),
+    ALREADY_STORED_IN_ALBUM_PHOTO(202, "You have a photo is already saved to an album.", HttpStatus.BAD_REQUEST),
 
     // Album
-    ALBUM_NOT_FOUND(400, "Not found album id.", HttpStatus.NOT_FOUND),
+    ALBUM_NOT_FOUND(400, "Not found album id.", HttpStatus.BAD_REQUEST),
 
     // Kakao
     GET_ACCESS_TOKEN_FAILED(900, "Failed to retrieve access token.", HttpStatus.UNAUTHORIZED),
