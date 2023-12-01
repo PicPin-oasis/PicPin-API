@@ -3,22 +3,22 @@ package com.picpin.api.photo.usecases
 import com.picpin.api.photo.domains.root.Photo
 import com.picpin.api.photo.domains.root.PhotoService
 import com.picpin.api.photo.interfaces.models.GetMyPhotoSectionsResponse
-import org.springframework.stereotype.Service
+import com.picpin.api.verticals.stereotype.UseCase
 
-@Service
+@UseCase
 class GetMyPhotoSectionsUseCase(
     private val photoService: PhotoService
 ) {
 
-    fun process(accountId: Long): GetMyPhotoSectionsResponse.PhotoSections {
+    operator fun invoke(accountId: Long): GetMyPhotoSectionsResponse.PhotoSections {
         val targetPhotos = photoService.readAllByOwnerId(accountId)
-        return GetMyPhotoSectionsAssembler.assemble(targetPhotos)
+        return GetMyPhotoSectionsAssembler(targetPhotos)
     }
 }
 
 object GetMyPhotoSectionsAssembler {
 
-    fun assemble(photos: List<Photo>): GetMyPhotoSectionsResponse.PhotoSections {
+    operator fun invoke(photos: List<Photo>): GetMyPhotoSectionsResponse.PhotoSections {
         val groupingPhotosByTakenPhotoDate = photos.groupBy { it.takenPhotoDate }
 
         val responses = groupingPhotosByTakenPhotoDate.entries.map { (takenPhotoDate, photos) ->

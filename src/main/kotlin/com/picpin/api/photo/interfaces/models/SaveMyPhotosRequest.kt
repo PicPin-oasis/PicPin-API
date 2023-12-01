@@ -23,7 +23,7 @@ class SaveMyPhotosRequest {
 
         @Schema(description = "메모", defaultValue = "샘플 메모")
         @get:Size(max = 300)
-        val memo: String,
+        val memo: String?,
 
         @Schema(description = "사진 촬영 주소", defaultValue = "서울..")
         @get:NotBlank

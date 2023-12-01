@@ -1,14 +1,14 @@
 package com.picpin.api.photo.usecases
 
 import com.picpin.api.photo.domains.root.PhotoService
-import org.springframework.stereotype.Service
+import com.picpin.api.verticals.stereotype.UseCase
 
-@Service
+@UseCase
 class RemoveMyPhotoUseCase(
     private val photoService: PhotoService
 ) {
 
-    fun process(photoId: Long, accountId: Long) {
+    operator fun invoke(photoId: Long, accountId: Long) {
         photoService.removeBy(photoId, accountId)
     }
 }

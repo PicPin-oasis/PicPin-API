@@ -26,8 +26,8 @@ class Photo(
     val ownerId: Long,
     @Column(nullable = false, length = 10, name = "place_name")
     var placeName: String,
-    @Column(nullable = false, length = 100)
-    var memo: String,
+    @Column(nullable = true, length = 300)
+    var memo: String?,
     @Column(nullable = false, length = 100, name = "image_url")
     var imageUrl: String,
     @Column(nullable = false, length = 100, name = "province_id")

@@ -8,11 +8,11 @@ import com.picpin.api.oauth.domains.access.AccessTokenGenerator
 import com.picpin.api.oauth.domains.models.JsonWebToken
 import com.picpin.api.oauth.domains.models.toAccount
 import com.picpin.api.oauth.domains.refresh.KakaoRefreshTokenService
+import com.picpin.api.verticals.stereotype.UseCase
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.springframework.stereotype.Service
 
-@Service
+@UseCase
 class KakaoSocialLoginUseCase(
     private val kakaoAccessTokenReader: KakaoAccessTokenReader,
     private val kakaoProfileReader: KakaoProfileReader,
@@ -22,7 +22,7 @@ class KakaoSocialLoginUseCase(
 ) {
     val logger: KLogger = KotlinLogging.logger { }
 
-    fun process(authCode: String): SocialLoginResponse {
+    operator fun invoke(authCode: String): SocialLoginResponse {
         val kakaoAccessToken = kakaoAccessTokenReader.getAccessToken(authCode)
         val kakaoUserInfo = kakaoProfileReader.getKakaoUserInfo(
             tokenType = kakaoAccessToken.tokenType,

@@ -96,6 +96,10 @@ jwt:
   secret: ${JWT_SECRET}
   access_token_expire_time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
 
+coordinate:
+  rest_api_key: ${KAKAO_REST_API_KEY:A}
+  local_api_url: "https://dapi.kakao.com/v2/local/search/address.json"
+
 aws:
   region: ap-northeast-2
   cloud_front: ${CLOUD_FRONT_DOMAIN:A}

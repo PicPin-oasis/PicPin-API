@@ -8,7 +8,7 @@ data class SaveMyPhotosCommand(
     val ownerId: Long,
     val albumId: Long?,
     val placeName: String,
-    val memo: String,
+    val memo: String?,
     val takenPhotoAddress: String,
     val takenPhotoDate: LocalDate,
     val photoUrls: List<String>

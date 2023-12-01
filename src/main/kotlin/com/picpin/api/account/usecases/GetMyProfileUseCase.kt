@@ -2,14 +2,14 @@ package com.picpin.api.account.usecases
 
 import com.picpin.api.account.domains.AccountService
 import com.picpin.api.oauth.interfaces.models.MyProfileResponse
-import org.springframework.stereotype.Service
+import com.picpin.api.verticals.stereotype.UseCase
 
-@Service
+@UseCase
 class GetMyProfileUseCase(
     private val accountService: AccountService
 ) {
 
-    fun process(accountId: Long): MyProfileResponse {
+    operator fun invoke(accountId: Long): MyProfileResponse {
         val account = accountService.findOneOrThrow(accountId)
         return MyProfileResponse(account.id, account.profileImageUrl, account.username)
     }

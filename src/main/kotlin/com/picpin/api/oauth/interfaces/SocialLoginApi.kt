@@ -18,7 +18,7 @@ class SocialLoginApi(
 
     @GetMapping("/oauth2/code/kakao")
     override fun socialLogin(@RequestParam("code") authCode: String): ResponseEntity<SocialLoginResponse> {
-        val response = kakaoSocialLoginUseCase.process(authCode)
+        val response = kakaoSocialLoginUseCase(authCode)
         return ResponseEntity.ok(response)
     }
 }

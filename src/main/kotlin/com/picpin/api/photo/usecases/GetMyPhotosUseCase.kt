@@ -4,26 +4,26 @@ import com.picpin.api.photo.domains.models.SearchType
 import com.picpin.api.photo.domains.root.Photo
 import com.picpin.api.photo.domains.root.PhotoService
 import com.picpin.api.photo.interfaces.models.GetMyPhotosResponse
+import com.picpin.api.verticals.stereotype.UseCase
 import org.springframework.data.jpa.domain.Specification
-import org.springframework.stereotype.Service
 
-@Service
+@UseCase
 class GetMyPhotosUseCase(
     private val photoService: PhotoService
 ) {
 
-    fun process(rawSearchType: String?, accountId: Long): GetMyPhotosResponse.PhotoCards {
+    operator fun invoke(rawSearchType: String?, accountId: Long): GetMyPhotosResponse.PhotoCards {
         val searchType: SearchType = SearchType.parse(rawSearchType)
-        val specification = GetMyPhotosSpec.build(searchType, accountId)
+        val specification = GetMyPhotosSpecification(searchType, accountId)
 
         val targetPhotos = photoService.readAllBySpecification(specification)
-        return GetMyPhotosAssembler.assemble(targetPhotos)
+        return GetMyPhotosAssembler(targetPhotos)
     }
 }
 
 object GetMyPhotosAssembler {
 
-    fun assemble(targetPhotos: List<Photo>): GetMyPhotosResponse.PhotoCards {
+    operator fun invoke(targetPhotos: List<Photo>): GetMyPhotosResponse.PhotoCards {
         val photoCards = targetPhotos.map {
             GetMyPhotosResponse.PhotoCard.create(it)
         }
@@ -32,9 +32,9 @@ object GetMyPhotosAssembler {
     }
 }
 
-object GetMyPhotosSpec {
+object GetMyPhotosSpecification {
 
-    fun build(searchType: SearchType, accountId: Long): Specification<Photo> {
+    operator fun invoke(searchType: SearchType, accountId: Long): Specification<Photo> {
         return Specification<Photo> { root, _, builder ->
             when (searchType) {
                 SearchType.ALL -> {
