@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -33,6 +34,10 @@ class AlbumApi(
     ): ResponseEntity<GetMyAlbumsResponse.Albums> {
         val response = getMyAlbumsUseCase(accountId, pageable)
         return ResponseEntity.ok(response)
+    }
+
+    override fun getMyAlbumDetail(albumId: Long, accountId: Long): ResponseEntity<GetMyAlbumResponse.Album> {
+        TODO("Not yet implemented")
     }
 
     @PostMapping
@@ -66,6 +71,13 @@ interface AlbumApiDocs {
         @Parameter(hidden = true) @AccountId accountId: Long,
         @PageableDefault pageable: Pageable
     ): ResponseEntity<GetMyAlbumsResponse.Albums>
+
+    @Operation()
+    @GetMapping("/{albumId}")
+    fun getMyAlbumDetail(
+        @PathVariable albumId: Long,
+        @Parameter(hidden = true) @AccountId accountId: Long
+    ): ResponseEntity<GetMyAlbumResponse.Album>
 
     @Operation(
         method = "POST",

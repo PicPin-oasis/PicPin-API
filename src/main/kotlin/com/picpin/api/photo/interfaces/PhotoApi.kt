@@ -1,18 +1,18 @@
 package com.picpin.api.photo.interfaces
 
-import com.picpin.api.metaattribute.interfaces.models.GetUploadUrlRequest
 import com.picpin.api.photo.interfaces.models.GetMyPhotoDetailResponse
 import com.picpin.api.photo.interfaces.models.GetMyPhotoSectionsResponse
 import com.picpin.api.photo.interfaces.models.GetMyPhotosResponse
 import com.picpin.api.photo.interfaces.models.ModifyMyPhotoRequest
 import com.picpin.api.photo.interfaces.models.SaveMyPhotosRequest
+import com.picpin.api.photo.interfaces.models.UploadMyPhotosResponse
 import com.picpin.api.photo.usecases.GetMyPhotoDetailUseCase
 import com.picpin.api.photo.usecases.GetMyPhotoSectionsUseCase
 import com.picpin.api.photo.usecases.GetMyPhotosUseCase
-import com.picpin.api.photo.usecases.GetUploadUrlUseCase
 import com.picpin.api.photo.usecases.ModifyMyPhotoUseCase
 import com.picpin.api.photo.usecases.RemoveMyPhotoUseCase
 import com.picpin.api.photo.usecases.SaveMyPhotosUseCase
+import com.picpin.api.photo.usecases.UploadMyPhotosUseCase
 import com.picpin.api.verticals.interfaces.model.AccountId
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -28,25 +28,26 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 class PhotoApi(
-    private val getUploadUrlUseCase: GetUploadUrlUseCase,
     private val getMyPhotosUseCase: GetMyPhotosUseCase,
     private val getMyPhotoSectionsUseCase: GetMyPhotoSectionsUseCase,
     private val getMyPhotoDetailUseCase: GetMyPhotoDetailUseCase,
     private val saveMyPhotoUseCase: SaveMyPhotosUseCase,
     private val modifyMyPhotoUseCase: ModifyMyPhotoUseCase,
-    private val removeMyPhotoUseCase: RemoveMyPhotoUseCase
+    private val removeMyPhotoUseCase: RemoveMyPhotoUseCase,
+    private val uploadMyPhotosUseCase: UploadMyPhotosUseCase
 ) : PhotoApiDocs {
 
-    @PostMapping("/photos/upload-url")
-    override fun getUploadUrl(
-        @Valid @RequestBody request: GetUploadUrlRequest,
-        @AccountId accountId: Long
-    ): ResponseEntity<UploadUrlResponse> {
-        val response = getUploadUrlUseCase(request.imageName)
+    @PostMapping("/photos/upload")
+    override fun uploadMyPhotos(
+        @RequestPart files: List<MultipartFile>
+    ): ResponseEntity<UploadMyPhotosResponse> {
+        val response = uploadMyPhotosUseCase(files)
         return ResponseEntity.ok(response)
     }
 
@@ -105,7 +106,7 @@ interface PhotoApiDocs {
 
     @Operation(
         method = "POST",
-        summary = "내 사진 업로드 경로 조회",
+        summary = "사진 업로드",
         parameters = [
             Parameter(
                 name = HttpHeaders.AUTHORIZATION,
@@ -116,11 +117,10 @@ interface PhotoApiDocs {
             )
         ]
     )
-    @PostMapping("/photos/upload-url")
-    fun getUploadUrl(
-        @Valid @RequestBody request: GetUploadUrlRequest,
-        @Parameter(hidden = true) @AccountId accountId: Long
-    ): ResponseEntity<UploadUrlResponse>
+    @PostMapping("/photos/upload")
+    fun uploadMyPhotos(
+        @RequestPart files: List<MultipartFile>
+    ): ResponseEntity<UploadMyPhotosResponse>
 
     @Operation(
         method = "GET",

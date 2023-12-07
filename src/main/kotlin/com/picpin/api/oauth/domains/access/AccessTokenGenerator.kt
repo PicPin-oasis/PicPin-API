@@ -28,13 +28,15 @@ class AccessTokenGenerator(
         return JsonWebToken(accessToken, accessExpireTime.epochSecond)
     }
 
-    private fun getAccessTokenExpireTime() = LocalDateTime.now(ZoneId.of("Asia/Seoul"))
-        .plusSeconds(accessTokenExpireTime)
-        .toInstant(ZoneOffset.of("+09:00"))
+    private fun getAccessTokenExpireTime(): Instant {
+        return LocalDateTime.now(ZoneId.of("Asia/Seoul"))
+            .plusSeconds(accessTokenExpireTime)
+            .toInstant(ZoneOffset.of("+09:00"))
+    }
 
     private fun createAccessToken(
         accountId: Long,
-        accessExpireTime: Instant?
+        accessExpireTime: Instant
     ) = try {
         JWT.create()
             .withIssuer(issuer)

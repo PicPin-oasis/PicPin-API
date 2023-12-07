@@ -1,0 +1,17 @@
+POST {{apiAddress}}/photos/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kX3BpY3Bpbl81YThNIiwidHlwZSI6IktBS0FPIiwiZXhwIjoxNzAxOTE3MzM4LCJqdGkiOiIxIn0.dI5tRfq-5i1UPLZ7sc2v_eC1hJx155XUZqlF--TXMpI
+
+--WebAppBoundary
+Content-Disposition: form-data; name="files"; filename="KakaoTalk_20220201_105518089_01.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\Lob\Desktop\KakaoTalk_20220201_105518089_01.jpg
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="files"; filename="BergenHordalandNorwayVagen.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\Lob\Desktop\BergenHordalandNorwayVagen.jpg
+--WebAppBoundary--
