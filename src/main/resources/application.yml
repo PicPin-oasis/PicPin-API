@@ -24,6 +24,12 @@ spring:
     hibernate:
       ddl-auto: create
 
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      max-file-size: 10MB
+      max-request-size: 100MB
+
 oauth2:
   access_token_url: "https://kauth.kakao.com/oauth/token"
   get_user_info_url: "https://kapi.kakao.com/v2/user/me"
@@ -83,6 +89,12 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: none
+
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      max-file-size: 10MB
+      max-request-size: 100MB
 
 oauth2:
   access_token_url: "https://kauth.kakao.com/oauth/token"
