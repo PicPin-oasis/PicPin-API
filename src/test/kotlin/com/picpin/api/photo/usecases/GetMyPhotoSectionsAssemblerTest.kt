@@ -21,7 +21,7 @@ class GetMyPhotoSectionsAssemblerTest {
         )
 
         // Act
-        val response = GetMyPhotoSectionsAssembler.assemble(photos)
+        val response = GetMyPhotoSectionsAssembler(photos)
         val postSections = response.postSections
 
         // Assert

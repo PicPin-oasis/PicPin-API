@@ -1,73 +1,61 @@
 package com.picpin.api.photo.domains.upload
 
-import com.amazonaws.HttpMethod
 import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.Headers
-import com.amazonaws.services.s3.model.CannedAccessControlList.PublicRead
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest
-import com.picpin.api.photo.domains.models.PreSignedUrl
-import com.picpin.api.verticals.domains.base.DEFAULT_ZONE_ID
+import com.amazonaws.services.s3.model.ObjectMetadata
+import com.amazonaws.services.s3.model.PutObjectRequest
+import io.github.oshai.kotlinlogging.KLogger
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import org.springframework.util.StringUtils
-import java.time.Instant
-import java.time.LocalDateTime
+import org.springframework.web.multipart.MultipartFile
 import java.time.OffsetDateTime
 import java.util.*
 
 @Service
 class S3Service(
     private val amazonS3: AmazonS3,
-    @Value("\${aws.bucket}") private val bucket: String,
+    @Value("\${aws.bucket}") private val bucketName: String,
     @Value("\${aws.cloud_front}") private val cloudFront: String
 ) {
+    val logger: KLogger = KotlinLogging.logger { }
 
-    fun generatePreSignedUrl(imageName: String): PreSignedUrl {
-        val extension = getFilenameExtension(imageName)
-        validExtension(extension)
+    fun uploadImageFiles(imageFiles: List<MultipartFile>): Pair<MutableList<String>, MutableList<String>> {
+        val failedUploadImageFiles = mutableListOf<String>()
+        val successUploadImageFiles = mutableListOf<String>()
 
-        val bucketKey = generateBucketKey(extension)
-        val expiration = getExpiration()
-        val preSignedUrlRequest = generatePreSignedUrlRequest(bucketKey, expiration, extension)
+        imageFiles.map {
+            try {
+                val contentType = it.contentType
+                if (validateMimeType(contentType).not()) {
+                    failedUploadImageFiles.add(it.originalFilename ?: "unknown")
+                    return@map
+                }
 
-        val uploadUrl = amazonS3.generatePresignedUrl(preSignedUrlRequest).toString()
-        return PreSignedUrl(cloudFront, bucketKey, uploadUrl)
-    }
+                val metadata = ObjectMetadata().apply {
+                    this.contentType = contentType
+                    this.contentLength = it.size
+                }
+                val bucketKey = generateBucketKey(contentType!!.split("/").last())
+                sendPutRequestToS3(bucketKey, it, metadata)
 
-    private fun getFilenameExtension(imageName: String): String =
-        when (val filenameExtension = StringUtils.getFilenameExtension(imageName)) {
-            null -> {
-                ""
-            }
-            else -> {
-                filenameExtension
+                successUploadImageFiles.add(buildImageUrlPathForCdn(bucketKey))
+            } catch (exception: Exception) {
+                logger.info { "S3Service.upload() failed. message = ${exception.localizedMessage}, file = ${it.originalFilename} ${it.contentType} ${it.size}" }
+                failedUploadImageFiles.add(it.originalFilename ?: "unknown")
             }
         }
 
-    private fun validExtension(extension: String) {
-        if (!ALLOWED_IMAGE_LIST.contains(extension)) {
-            throw RuntimeException()
-        }
+        return successUploadImageFiles to failedUploadImageFiles
     }
 
-    private fun generatePreSignedUrlRequest(
-        bucketKey: String,
-        expiration: Instant,
-        extension: String
-    ): GeneratePresignedUrlRequest {
-        val request = GeneratePresignedUrlRequest(bucket, bucketKey)
-            .withContentType(extension)
-            .withMethod(HttpMethod.PUT)
-            .withExpiration(Date.from(expiration))
-        request.addRequestParameter(Headers.S3_CANNED_ACL, PublicRead.toString())
+    private fun validateMimeType(contentType: String?) = ALLOWED_MIME_CONTENT_TYPES.contains(contentType)
 
-        return request
+    private fun sendPutRequestToS3(bucketKey: String, it: MultipartFile, metadata: ObjectMetadata) {
+        val request = PutObjectRequest(bucketName, bucketKey, it.inputStream, metadata)
+        amazonS3.putObject(request)
     }
 
-    private fun getExpiration() = LocalDateTime.now()
-        .plusMinutes(10)
-        .atZone(DEFAULT_ZONE_ID)
-        .toInstant()
+    private fun buildImageUrlPathForCdn(bucketKey: String) = "$cloudFront/$bucketKey"
 
     private fun generateBucketKey(extension: String): String {
         val filePath = "images/$extension"
@@ -78,7 +66,6 @@ class S3Service(
     }
 
     companion object {
-        private val ALLOWED_IMAGE_LIST = listOf("jpg", "jpeg", "png")
-        private const val JPEG_FORMAT_NAME = "jpeg"
+        private val ALLOWED_MIME_CONTENT_TYPES = listOf("image/jpeg", "image/png")
     }
 }
