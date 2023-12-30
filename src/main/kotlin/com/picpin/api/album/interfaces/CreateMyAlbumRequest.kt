@@ -14,18 +14,13 @@ data class CreateMyAlbumRequest(
     @Schema(description = "엘범 커버 이미지", defaultValue = "서울..")
     @get:NotBlank
     @JsonProperty("cover_image_url")
-    val coverImageUrl: String,
-
-    @Schema(description = "엘범 최초 생성시 등록할 사진 선택", defaultValue = "[1, 2, 3]")
-    @JsonProperty("photo_ids")
-    val photoIds: List<Long>
+    val coverImageUrl: String
 ) {
 
     fun toCommand(accountId: Long): CreateMyAlbumCommand =
         CreateMyAlbumCommand(
             accountId = accountId,
             title = title,
-            coverImageUrl = coverImageUrl,
-            postIds = photoIds
+            coverImageUrl = coverImageUrl
         )
 }

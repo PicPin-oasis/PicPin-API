@@ -31,6 +31,10 @@ class PhotoService(
         return photoRepository.findAll(specification)
     }
 
+    fun readAllByAlbumId(albumId: Long): List<Photo> {
+        return photoRepository.findAllByAlbumId(albumId)
+    }
+
     @Transactional
     fun modifyBy(photo: Photo): Photo {
         val targetPhoto = photoRepository.findOneOrThrow(photo.id)

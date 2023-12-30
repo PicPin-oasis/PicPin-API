@@ -9,6 +9,8 @@ interface PhotoRepository : JpaRepository<Photo, Long>, JpaSpecificationExecutor
 
     fun findAllByOwnerId(ownerId: Long): List<Photo>
 
+    fun findAllByAlbumId(albumId: Long): List<Photo>
+
     fun deleteByIdAndOwnerId(id: Long, ownerId: Long)
 }
 

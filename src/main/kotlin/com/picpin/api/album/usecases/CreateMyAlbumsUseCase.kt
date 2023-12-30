@@ -12,8 +12,7 @@ class CreateMyAlbumsUseCase(
 
     operator fun invoke(command: CreateMyAlbumCommand) {
         transactionHandler.runInTransaction {
-            val album = albumService.save(command.toAlbum())
-            command.postIds
+            albumService.save(command.toAlbum())
         }
     }
 }

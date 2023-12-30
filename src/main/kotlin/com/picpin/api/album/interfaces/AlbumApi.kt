@@ -1,6 +1,7 @@
 package com.picpin.api.album.interfaces
 
 import com.picpin.api.album.usecases.CreateMyAlbumsUseCase
+import com.picpin.api.album.usecases.GetMyAlbumDetailUseCase
 import com.picpin.api.album.usecases.GetMyAlbumsUseCase
 import com.picpin.api.verticals.interfaces.model.AccountId
 import io.swagger.v3.oas.annotations.Operation
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/albums")
 class AlbumApi(
     private val getMyAlbumsUseCase: GetMyAlbumsUseCase,
+    private val getMyAlbumDetailUseCase: GetMyAlbumDetailUseCase,
     private val createMyAlbumUseCase: CreateMyAlbumsUseCase
 ) : AlbumApiDocs {
 
@@ -36,8 +38,13 @@ class AlbumApi(
         return ResponseEntity.ok(response)
     }
 
-    override fun getMyAlbumDetail(albumId: Long, accountId: Long): ResponseEntity<GetMyAlbumResponse.Album> {
-        TODO("Not yet implemented")
+    @GetMapping("/{albumId}")
+    override fun getMyAlbumDetail(
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable albumId: Long
+    ): ResponseEntity<GetMyAlbumResponse.Album> {
+        val response = getMyAlbumDetailUseCase(accountId, albumId)
+        return ResponseEntity.ok(response)
     }
 
     @PostMapping
@@ -72,11 +79,23 @@ interface AlbumApiDocs {
         @PageableDefault pageable: Pageable
     ): ResponseEntity<GetMyAlbumsResponse.Albums>
 
-    @Operation()
+    @Operation(
+        method = "GET",
+        summary = "내 앨범 상세 조회",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            )
+        ]
+    )
     @GetMapping("/{albumId}")
     fun getMyAlbumDetail(
-        @PathVariable albumId: Long,
-        @Parameter(hidden = true) @AccountId accountId: Long
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable albumId: Long
     ): ResponseEntity<GetMyAlbumResponse.Album>
 
     @Operation(
