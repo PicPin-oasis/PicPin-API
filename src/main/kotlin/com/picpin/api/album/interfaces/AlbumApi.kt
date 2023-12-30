@@ -7,6 +7,9 @@ import com.picpin.api.verticals.interfaces.model.AccountId
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
@@ -71,6 +74,9 @@ interface AlbumApiDocs {
                 example = "Bearer eyjhbGciOiJIUz...",
                 required = true
             )
+        ],
+        responses = [
+            ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetMyAlbumsResponse.Albums::class))])
         ]
     )
     @GetMapping
@@ -90,6 +96,9 @@ interface AlbumApiDocs {
                 example = "Bearer eyjhbGciOiJIUz...",
                 required = true
             )
+        ],
+        responses = [
+            ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetMyAlbumResponse.Album::class))])
         ]
     )
     @GetMapping("/{albumId}")

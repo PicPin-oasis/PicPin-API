@@ -1,7 +1,9 @@
 package com.picpin.api.album.interfaces
 
+import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDate
 
+@Schema
 class GetMyAlbumResponse {
     data class Album(
         val id: Long,

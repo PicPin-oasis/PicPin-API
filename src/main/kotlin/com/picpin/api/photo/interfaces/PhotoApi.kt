@@ -17,6 +17,9 @@ import com.picpin.api.verticals.interfaces.model.AccountId
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpHeaders
@@ -115,6 +118,9 @@ interface PhotoApiDocs {
                 example = "Bearer eyjhbGciOiJIUz...",
                 required = true
             )
+        ],
+        responses = [
+            ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = UploadMyPhotosResponse::class))])
         ]
     )
     @PostMapping("/photos/upload")
@@ -140,6 +146,9 @@ interface PhotoApiDocs {
                 example = "ALL",
                 required = false
             )
+        ],
+        responses = [
+            ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetMyPhotosResponse.PhotoCards::class))])
         ]
     )
     @GetMapping("/photos")
@@ -159,6 +168,9 @@ interface PhotoApiDocs {
                 example = "Bearer eyjhbGciOiJIUz...",
                 required = true
             )
+        ],
+        responses = [
+            ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetMyPhotoSectionsResponse.PhotoSections::class))])
         ]
     )
     @GetMapping("/photo-sections")
@@ -175,6 +187,9 @@ interface PhotoApiDocs {
                 example = "Bearer eyjhbGciOiJIUz...",
                 required = true
             )
+        ],
+        responses = [
+            ApiResponse(responseCode = "200", content = [Content(schema = Schema(implementation = GetMyPhotoDetailResponse.PhotoDetail::class))])
         ]
     )
     @GetMapping("/photos/{photoId}")
