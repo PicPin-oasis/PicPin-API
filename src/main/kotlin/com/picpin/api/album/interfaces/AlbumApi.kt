@@ -69,7 +69,7 @@ class AlbumApi(
     override fun modifyMyAlbum(
         @Valid @RequestBody request: ModifyMyAlbumRequest,
         @Parameter(hidden = true) @AccountId accountId: Long,
-        @PathVariable albumId: Long,
+        @PathVariable albumId: Long
     ): ResponseEntity<Unit> {
         modifyMyAlbumUseCase(request.toCommand(accountId))
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
@@ -168,7 +168,7 @@ interface AlbumApiDocs {
     fun modifyMyAlbum(
         @Valid @RequestBody request: ModifyMyAlbumRequest,
         @Parameter(hidden = true) @AccountId accountId: Long,
-        @PathVariable albumId: Long,
+        @PathVariable albumId: Long
     ): ResponseEntity<Unit>
 
     @Operation(
