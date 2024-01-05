@@ -3,6 +3,8 @@ package com.picpin.api.album.interfaces
 import com.picpin.api.album.usecases.CreateMyAlbumsUseCase
 import com.picpin.api.album.usecases.GetMyAlbumDetailUseCase
 import com.picpin.api.album.usecases.GetMyAlbumsUseCase
+import com.picpin.api.album.usecases.ModifyMyAlbumUseCase
+import com.picpin.api.album.usecases.RemoveMyAlbumUseCase
 import com.picpin.api.verticals.interfaces.model.AccountId
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -17,9 +19,11 @@ import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -29,7 +33,9 @@ import org.springframework.web.bind.annotation.RestController
 class AlbumApi(
     private val getMyAlbumsUseCase: GetMyAlbumsUseCase,
     private val getMyAlbumDetailUseCase: GetMyAlbumDetailUseCase,
-    private val createMyAlbumUseCase: CreateMyAlbumsUseCase
+    private val createMyAlbumUseCase: CreateMyAlbumsUseCase,
+    private val modifyMyAlbumUseCase: ModifyMyAlbumUseCase,
+    private val removeMyAlbumUseCase: RemoveMyAlbumUseCase
 ) : AlbumApiDocs {
 
     @GetMapping
@@ -57,6 +63,25 @@ class AlbumApi(
     ): ResponseEntity<Unit> {
         createMyAlbumUseCase(request.toCommand(accountId))
         return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
+
+    @PutMapping("/{albumId}")
+    override fun modifyMyAlbum(
+        @Valid @RequestBody request: ModifyMyAlbumRequest,
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable albumId: Long,
+    ): ResponseEntity<Unit> {
+        modifyMyAlbumUseCase(request.toCommand(accountId))
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+    @DeleteMapping("/{albumId}")
+    override fun removeMyAlbum(
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable albumId: Long
+    ): ResponseEntity<Unit> {
+        removeMyAlbumUseCase(accountId, albumId)
+        return ResponseEntity.status(HttpStatus.OK).build()
     }
 }
 
@@ -124,5 +149,44 @@ interface AlbumApiDocs {
     fun createMyAlbum(
         @Valid @RequestBody request: CreateMyAlbumRequest,
         @Parameter(hidden = true) @AccountId accountId: Long
+    ): ResponseEntity<Unit>
+
+    @Operation(
+        method = "POST",
+        summary = "내 앨범 수정",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            )
+        ]
+    )
+    @PutMapping("/{albumId}")
+    fun modifyMyAlbum(
+        @Valid @RequestBody request: ModifyMyAlbumRequest,
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable albumId: Long,
+    ): ResponseEntity<Unit>
+
+    @Operation(
+        method = "POST",
+        summary = "내 앨범 삭제",
+        parameters = [
+            Parameter(
+                name = HttpHeaders.AUTHORIZATION,
+                `in` = ParameterIn.HEADER,
+                description = "JWT Token",
+                example = "Bearer eyjhbGciOiJIUz...",
+                required = true
+            )
+        ]
+    )
+    @DeleteMapping("/{albumId}")
+    fun removeMyAlbum(
+        @Parameter(hidden = true) @AccountId accountId: Long,
+        @PathVariable albumId: Long
     ): ResponseEntity<Unit>
 }

@@ -55,6 +55,10 @@ class Photo(
         this.takenPhotoDate = photo.takenPhotoDate
     }
 
+    fun unlinkAlbum() {
+        this.albumId = null
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true

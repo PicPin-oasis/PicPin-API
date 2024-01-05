@@ -17,15 +17,23 @@ import jakarta.persistence.Table
 )
 class Album(
     @Column(nullable = false, length = 10)
-    val title: String,
+    var title: String,
     @Column(nullable = false, length = 100, name = "cover_image_url")
-    val coverImageUrl: String,
+    var coverImageUrl: String,
     @Column(nullable = false, name = "owner_id")
     val ownerId: Long,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L
 ) : BaseTimeEntity() {
+
+    fun isOwner(ownerId: Long): Boolean = this.ownerId == ownerId
+
+    fun update(album: Album) {
+        this.title = album.title
+        this.coverImageUrl = album.coverImageUrl
+    }
+
     companion object {
         fun fixture(
             title: String = "바다 파도와 해변",

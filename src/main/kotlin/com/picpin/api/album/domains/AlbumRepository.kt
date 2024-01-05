@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface AlbumRepository : JpaRepository<Album, Long> {
     fun findAllByOwnerId(ownerId: Long, pageable: Pageable): List<Album>
+    fun deleteByIdAndOwnerId(albumId: Long, ownerId: Long)
 }
 
 fun AlbumRepository.findOneOrThrow(albumId: Long): Album {

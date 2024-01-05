@@ -1,5 +1,6 @@
 package com.picpin.api.photo.domains.root
 
+import com.picpin.api.photo.domains.models.PhotoList
 import com.picpin.api.verticals.domains.exception.BusinessErrorCode
 import com.picpin.api.verticals.domains.exception.BusinessException
 import org.springframework.data.jpa.domain.Specification
@@ -49,5 +50,15 @@ class PhotoService(
     @Transactional
     fun removeBy(photoId: Long, ownerId: Long) {
         photoRepository.deleteByIdAndOwnerId(photoId, ownerId)
+    }
+
+    @Transactional
+    fun unlinkAlbum(albumId: Long, ownerId: Long) {
+        val photos = photoRepository.findAllByAlbumId(albumId)
+        if ((photos.isNotEmpty() && photos.first().isOwner(ownerId).not())) {
+            throw BusinessException.from(BusinessErrorCode.THIS_ACCOUNT_IS_NOT_OWNER)
+        }
+
+        PhotoList(photos).unlinkAlbum()
     }
 }
