@@ -15,7 +15,7 @@ class AlbumService(
     fun findOneOrThrow(albumId: Long): Album = albumRepository.findOneOrThrow(albumId)
 
     @Transactional(readOnly = true)
-    fun findAllByOwnerId(accountId: Long, pageable: Pageable): List<Album> =
+    fun readAllByOwnerId(accountId: Long, pageable: Pageable): List<Album> =
         albumRepository.findAllByOwnerId(accountId, pageable)
 
     fun save(album: Album): Album = albumRepository.save(album)

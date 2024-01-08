@@ -7,14 +7,16 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 
 interface PhotoRepository : JpaRepository<Photo, Long>, JpaSpecificationExecutor<Photo> {
 
-    fun findAllByOwnerId(ownerId: Long): List<Photo>
+    fun readAllByOwnerId(ownerId: Long): List<Photo>
 
-    fun findAllByAlbumId(albumId: Long): List<Photo>
+    fun readAllByAlbumId(albumId: Long): List<Photo>
+
+    fun readAllByAlbumIdIn(albumIds: List<Long>): List<Photo>
 
     fun deleteByIdAndOwnerId(id: Long, ownerId: Long)
 }
 
-fun PhotoRepository.findOneOrThrow(photoId: Long): Photo {
+fun PhotoRepository.readOrThrow(photoId: Long): Photo {
     return findById(photoId).orElseThrow {
         BusinessException.of(BusinessErrorCode.PHOTO_NOT_FOUND, "photoId = $photoId")
     }

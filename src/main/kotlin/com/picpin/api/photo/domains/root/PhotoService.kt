@@ -17,15 +17,19 @@ class PhotoService(
     }
 
     fun readAllByOwnerId(ownerId: Long): List<Photo> {
-        return photoRepository.findAllByOwnerId(ownerId)
+        return photoRepository.readAllByOwnerId(ownerId)
     }
 
     fun readByOwnerId(photoId: Long, ownerId: Long): Photo {
-        val targetPhoto = photoRepository.findOneOrThrow(photoId)
+        val targetPhoto = photoRepository.readOrThrow(photoId)
         if (targetPhoto.isOwner(ownerId).not()) {
             throw BusinessException.from(BusinessErrorCode.PHOTO_NOT_FOUND)
         }
         return targetPhoto
+    }
+
+    fun readAllByAlbumIds(albumIds: List<Long>): List<Photo> {
+        return photoRepository.readAllByAlbumIdIn(albumIds)
     }
 
     fun readAllBySpecification(specification: Specification<Photo>): List<Photo> {
@@ -33,12 +37,12 @@ class PhotoService(
     }
 
     fun readAllByAlbumId(albumId: Long): List<Photo> {
-        return photoRepository.findAllByAlbumId(albumId)
+        return photoRepository.readAllByAlbumId(albumId)
     }
 
     @Transactional
     fun modifyBy(photo: Photo): Photo {
-        val targetPhoto = photoRepository.findOneOrThrow(photo.id)
+        val targetPhoto = photoRepository.readOrThrow(photo.id)
         if (targetPhoto.isOwner(photo.ownerId).not()) {
             throw BusinessException.from(BusinessErrorCode.THIS_ACCOUNT_IS_NOT_OWNER)
         }
@@ -54,7 +58,7 @@ class PhotoService(
 
     @Transactional
     fun unlinkAlbum(albumId: Long, ownerId: Long) {
-        val photos = photoRepository.findAllByAlbumId(albumId)
+        val photos = photoRepository.readAllByAlbumId(albumId)
         if ((photos.isNotEmpty() && photos.first().isOwner(ownerId).not())) {
             throw BusinessException.from(BusinessErrorCode.THIS_ACCOUNT_IS_NOT_OWNER)
         }

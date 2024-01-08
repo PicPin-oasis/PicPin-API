@@ -25,7 +25,7 @@ data class SaveMyPhotosCommand(
                 memo = memo,
                 imageUrl = photoUrl,
                 provinceId = provinceId,
-                coordinate = coordinate,
+                coordinates = coordinate,
                 takenPhotoAddress = takenPhotoAddress,
                 takenPhotoDate = takenPhotoDate,
                 id = 0

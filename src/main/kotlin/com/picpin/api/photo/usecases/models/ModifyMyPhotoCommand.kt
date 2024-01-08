@@ -23,7 +23,7 @@ data class ModifyMyPhotoCommand(
         memo = memo,
         imageUrl = "",
         provinceId = provinceId,
-        coordinate = coordinate,
+        coordinates = coordinate,
         takenPhotoAddress = takenPhotoAddress,
         takenPhotoDate = takenPhotoDate,
         id = photoId

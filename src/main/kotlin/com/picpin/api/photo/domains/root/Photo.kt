@@ -32,8 +32,8 @@ class Photo(
     var imageUrl: String,
     @Column(nullable = false, length = 100, name = "province_id")
     var provinceId: Int,
-    @Column(nullable = false, columnDefinition = "POINT SRID 4326")
-    var coordinate: Point,
+    @Column(nullable = false, columnDefinition = "POINT SRID 4326", name = "coordinate")
+    var coordinates: Point,
     @Column(nullable = false, length = 100, name = "taken_photo_address")
     var takenPhotoAddress: String,
     @Column(nullable = false, name = "taken_photo_date")
@@ -50,7 +50,7 @@ class Photo(
         this.placeName = photo.placeName
         this.memo = photo.memo
         this.provinceId = photo.provinceId
-        this.coordinate = photo.coordinate
+        this.coordinates = photo.coordinates
         this.takenPhotoAddress = photo.takenPhotoAddress
         this.takenPhotoDate = photo.takenPhotoDate
     }
@@ -78,7 +78,7 @@ class Photo(
     }
 
     override fun toString(): String {
-        return "Photo(albumId=$albumId, ownerId=$ownerId, placeName='$placeName', memo='$memo', imageUrl='$imageUrl', provinceId=$provinceId, coordinate=$coordinate, takenPhotoAddress='$takenPhotoAddress', takenPhotoDate=$takenPhotoDate, id=$id)"
+        return "Photo(albumId=$albumId, ownerId=$ownerId, placeName='$placeName', memo='$memo', imageUrl='$imageUrl', provinceId=$provinceId, coordinate=$coordinates, takenPhotoAddress='$takenPhotoAddress', takenPhotoDate=$takenPhotoDate, id=$id)"
     }
 
     companion object {
@@ -101,7 +101,7 @@ class Photo(
                 memo = memo,
                 imageUrl = imageUrl,
                 provinceId = provinceId,
-                coordinate = coordinate,
+                coordinates = coordinate,
                 takenPhotoAddress = takenPhotoAddress,
                 takenPhotoDate = takenPhotoDate,
                 id = id

@@ -11,6 +11,8 @@ class GetMyAlbumsResponse {
         val id: Long,
         val title: String,
         @JsonProperty("cover_image_url")
-        val coverImageUrl: String
+        val coverImageUrl: String,
+        val latitude: Double = 0.0,
+        val longitude: Double = 0.0
     )
 }
