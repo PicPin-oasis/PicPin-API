@@ -1,36 +1,35 @@
-package com.picpin.api.album.usecases
+package com.picpin.api.share.usecases
 
 import com.picpin.api.album.domains.Album
 import com.picpin.api.album.domains.AlbumService
-import com.picpin.api.album.interfaces.GetMyAlbumResponse
+import com.picpin.api.album.interfaces.GetSharedAlbumResponse
 import com.picpin.api.photo.domains.root.Photo
 import com.picpin.api.photo.domains.root.PhotoService
-import com.picpin.api.verticals.domains.exception.BusinessErrorCode
-import com.picpin.api.verticals.domains.exception.BusinessException
-import org.springframework.stereotype.Service
+import com.picpin.api.share.domains.ShareTokenService
+import com.picpin.api.verticals.stereotype.UseCase
 
-@Service
-class GetMyAlbumDetailUseCase(
+@UseCase
+class GetSharedAlbumUseCase(
+    private val sharedTokenService: ShareTokenService,
     private val albumService: AlbumService,
     private val photoService: PhotoService
 ) {
 
-    operator fun invoke(accountId: Long, albumId: Long): GetMyAlbumResponse.Album {
-        val targetAlbum = albumService.findOneOrThrow(albumId)
-        if (targetAlbum.isOwner(accountId).not()) {
-            throw BusinessException.from(BusinessErrorCode.THIS_ACCOUNT_IS_NOT_OWNER)
-        }
+    operator fun invoke(token: String): GetSharedAlbumResponse.Album {
+        val shareToken = sharedTokenService.findByPayload(token)
+        val albumId = shareToken.albumId
 
+        val targetAlbum = albumService.findOneOrThrow(albumId)
         val targetPhotos = photoService.findAllByAlbumId(albumId)
-        return GetMyAlbumDetailAssembler(targetAlbum, targetPhotos)
+        return GetSharedAlbumAssembler(targetAlbum, targetPhotos)
     }
 }
 
-object GetMyAlbumDetailAssembler {
+object GetSharedAlbumAssembler {
 
-    operator fun invoke(album: Album, photos: List<Photo>): GetMyAlbumResponse.Album {
+    operator fun invoke(album: Album, photos: List<Photo>): GetSharedAlbumResponse.Album {
         if (photos.isEmpty()) {
-            return GetMyAlbumResponse.Album(
+            return GetSharedAlbumResponse.Album(
                 id = album.id,
                 title = album.title,
                 startDate = null,
@@ -42,9 +41,9 @@ object GetMyAlbumDetailAssembler {
 
         val sortedPhotos = photos.sortedBy { it.takenPhotoDate }
         val mappedPhotos = sortedPhotos
-            .map { GetMyAlbumResponse.Photo(it.id, it.imageUrl) }
+            .map { GetSharedAlbumResponse.Photo(it.id, it.imageUrl) }
 
-        return GetMyAlbumResponse.Album(
+        return GetSharedAlbumResponse.Album(
             id = album.id,
             title = album.title,
             startDate = sortedPhotos.first().takenPhotoDate,

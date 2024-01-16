@@ -47,5 +47,8 @@ enum class BusinessErrorCode(
     INCORRECT_CLAIM(1006, "if a claim contained a different value than the expected one.", HttpStatus.UNAUTHORIZED),
 
     // TODO
-    SIGNATURE_VERIFICATION(1007, "if the signature is invalid.", HttpStatus.UNAUTHORIZED)
+    SIGNATURE_VERIFICATION(1007, "if the signature is invalid.", HttpStatus.UNAUTHORIZED),
+
+    // Share
+    ALREADY_EXISTS_SHARE_TOKEN(1010, "shared token already exists.", HttpStatus.BAD_REQUEST)
 }

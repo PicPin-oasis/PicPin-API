@@ -15,7 +15,7 @@ class RemoveMyAlbumUseCase(
     operator fun invoke(accountId: Long, albumId: Long) {
         transactionHandler.runInTransaction {
             albumService.removeBy(albumId, accountId)
-            photoService.readAllByAlbumId(albumId)
+            photoService.findAllByAlbumId(albumId)
         }
     }
 }

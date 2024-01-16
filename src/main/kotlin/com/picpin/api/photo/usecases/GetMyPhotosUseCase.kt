@@ -16,7 +16,7 @@ class GetMyPhotosUseCase(
         val searchType: SearchType = SearchType.parse(rawSearchType)
         val specification = GetMyPhotosSpecification(searchType, accountId)
 
-        val targetPhotos = photoService.readAllBySpecification(specification)
+        val targetPhotos = photoService.findAllBySpecification(specification)
         return GetMyPhotosAssembler(targetPhotos)
     }
 }

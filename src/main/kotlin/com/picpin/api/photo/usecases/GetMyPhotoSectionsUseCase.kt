@@ -11,7 +11,7 @@ class GetMyPhotoSectionsUseCase(
 ) {
 
     operator fun invoke(accountId: Long): GetMyPhotoSectionsResponse.PhotoSections {
-        val targetPhotos = photoService.readAllByOwnerId(accountId)
+        val targetPhotos = photoService.findAllByOwnerId(accountId)
         return GetMyPhotoSectionsAssembler(targetPhotos)
     }
 }

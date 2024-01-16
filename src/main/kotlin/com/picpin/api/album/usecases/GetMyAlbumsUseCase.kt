@@ -17,7 +17,7 @@ class GetMyAlbumsUseCase(
     operator fun invoke(accountId: Long, pageable: Pageable): GetMyAlbumsResponse.Albums {
         val targetAlbums = albumService.readAllByOwnerId(accountId, pageable)
         val targetAlbumIds = targetAlbums.map { it.id }
-        val targetPhotos = photoService.readAllByAlbumIds(targetAlbumIds)
+        val targetPhotos = photoService.findAllByAlbumIds(targetAlbumIds)
 
         val albums = createAlbums(targetAlbums, targetPhotos)
         return GetMyAlbumsResponse.Albums(albums)

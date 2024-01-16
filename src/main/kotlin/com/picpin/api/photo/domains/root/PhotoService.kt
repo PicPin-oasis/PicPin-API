@@ -16,11 +16,11 @@ class PhotoService(
         photoRepository.saveAll(photos)
     }
 
-    fun readAllByOwnerId(ownerId: Long): List<Photo> {
+    fun findAllByOwnerId(ownerId: Long): List<Photo> {
         return photoRepository.readAllByOwnerId(ownerId)
     }
 
-    fun readByOwnerId(photoId: Long, ownerId: Long): Photo {
+    fun findByOwnerId(photoId: Long, ownerId: Long): Photo {
         val targetPhoto = photoRepository.readOrThrow(photoId)
         if (targetPhoto.isOwner(ownerId).not()) {
             throw BusinessException.from(BusinessErrorCode.PHOTO_NOT_FOUND)
@@ -28,15 +28,15 @@ class PhotoService(
         return targetPhoto
     }
 
-    fun readAllByAlbumIds(albumIds: List<Long>): List<Photo> {
+    fun findAllByAlbumIds(albumIds: List<Long>): List<Photo> {
         return photoRepository.readAllByAlbumIdIn(albumIds)
     }
 
-    fun readAllBySpecification(specification: Specification<Photo>): List<Photo> {
+    fun findAllBySpecification(specification: Specification<Photo>): List<Photo> {
         return photoRepository.findAll(specification)
     }
 
-    fun readAllByAlbumId(albumId: Long): List<Photo> {
+    fun findAllByAlbumId(albumId: Long): List<Photo> {
         return photoRepository.readAllByAlbumId(albumId)
     }
 

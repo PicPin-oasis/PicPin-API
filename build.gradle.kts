@@ -29,10 +29,11 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
     implementation("org.hibernate:hibernate-spatial:6.2.13.Final")
-    runtimeOnly("com.mysql:mysql-connector-j:8.0.32")
+    runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+    implementation("com.github.f4b6a3:ulid-creator:5.2.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")

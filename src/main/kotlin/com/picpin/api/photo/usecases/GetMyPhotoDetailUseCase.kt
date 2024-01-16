@@ -10,7 +10,7 @@ class GetMyPhotoDetailUseCase(
 ) {
 
     operator fun invoke(photoId: Long, accountId: Long): GetMyPhotoDetailResponse.PhotoDetail {
-        val targetPhoto = photoService.readByOwnerId(photoId, accountId)
+        val targetPhoto = photoService.findByOwnerId(photoId, accountId)
         return GetMyPhotoDetailResponse.PhotoDetail.from(targetPhoto)
     }
 }
